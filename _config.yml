@@ -1,54 +1,43 @@
-title: Hack.Learn.Share
+title: konh4cks
 description: This blog contains write-ups of the things that I researched, learned, and wanted to share to others.
-author: Capt. Meelo
-github: https://github.com/capt-meelo
-about: An infosec guy who's constantly seeking for knowledge.
-google_analytics: UA-121401658-1
-avatar_url: /static/img/avatar.jpg
+author: konh4cks
+github: https://github.com/konh4cks
+about: Digital security enthusiast driven by curiosity and sharing discoveries.
+google_analytics: 
+avatar_url: /static/img/avatar.jpeg
 
 enableTags: true
 tagarray: []
 
 collections:
+  posts:
+    output: true
+    permalink: /:categories/:year/:month/:day/:title/
   project:
     output: true
     permalink: /project/:path/
 
 social:
-    - icon: fa-twitter
-      link: "https://twitter.com/CaptMeelo"
     - icon: fa-github
-      link: "https://github.com/capt-meelo"
+      link: "https://github.com/konh4cks"
 
 share:
-  twitter_username: CaptMeelo
+  twitter_username: 
 
 urls:
-    - text: Red Team
-      url: /category/redteam
-    - text: Malware Dev
-      url: /category/maldev
-    - text: Pen Test
-      url: /category/pentest
-    - text: Mobile
-      url: /category/mobile
-    - text: Exploit Dev
-      url: /category/exploitdev
-    - text: Talks
-      url: /category/talks
-    - text: Research
-      url: /category/research
-    - text: About Me
-      url: /about/
+    - text: whoami
+      url: /whoami
+    - text: Projects
+      url: /projects
+    - text: Resources
+      url: /resources
       
-url: "https://capt-meelo.github.io/"
+url: "https://konh4cks.github.io/"
 baseurl: ""
-paginate: 25
-per_page: 25
-paginate_path: "/page/:num/"
+
 markdown: kramdown
 plugins:
-  - jekyll-paginate
+  - jekyll-paginate-v2
   - jekyll-gist
   - jekyll-seo-tag
   - jemoji

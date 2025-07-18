@@ -1,6 +1,6 @@
 # KonH4cks Blog
 
-A cybersecurity blog built with Jekyll, based on the capt-meelo template.
+A cybersecurity blog built with Jekyll.
 
 ## Features
 
@@ -58,17 +58,6 @@ tags: [web, xss, writeup]
 Your content here...
 ```
 
-## Categories
-
-The blog supports the following categories:
-- Red Team (`/category/redteam`)
-- Malware Dev (`/category/maldev`)
-- Pen Test (`/category/pentest`)
-- Mobile (`/category/mobile`)
-- Exploit Dev (`/category/exploitdev`)
-- Talks (`/category/talks`)
-- Research (`/category/research`)
-
 ## Customization
 
 ### Configuration
@@ -90,8 +79,4 @@ This blog is designed to be deployed on GitHub Pages. Simply push your changes t
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Credits
-
-Based on the [capt-meelo](https://github.com/capt-meelo/capt-meelo.github.io) blog template. 
+This project is licensed under the MIT License - see the LICENSE file for details. 
