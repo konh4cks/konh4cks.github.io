@@ -34,12 +34,14 @@ twitter:
 social:
   # Change to your full name.
   # It will be displayed as the default author of the posts and the copyright owner in the Footer
-  name: konh4cks
+  name: k0NN
   email: example@domain.com # change to your email address
   fediverse_handle: "" # change to your fediverse handle or leave empty
   links:
     # The first element serves as the copyright owner's link
-    - https://github.com/konh4cks # change to your GitHub homepage
+    - https://github.com/konh4cks
+    - https://app.hackthebox.com/public/users/2162532
+    - https://www.linkedin.com/in/constantin-alexandru-razvan-985732276/
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
     # - https://www.linkedin.com/in/username
