@@ -6,7 +6,7 @@ order: 1
 
 ## $ whoami >
 
-I started my cybersecurity journey in 2023, building a strong foundation through platforms like TryHackMe and HackTheBox, complemented by specialized courses. I have developed hands-on experience in red teaming, malware development, and SOC analysis.
+I started my cybersecurity journey in 2023, building a strong foundation through platforms like TryHackMe and HackTheBox, complemented by specialized courses. I have developed hands-on experience in red teaming, malware development, and defense strategies.
 
 I would like to participate in any challenges or community events, please feel free to send me an email.
 
@@ -26,7 +26,8 @@ I am currently open for Penetration Tester positions.
 ---
 
 
-## Profiles
+## $ Profiles >
 
 - **HackTheBox**: [k0NN](https://app.hackthebox.com/public/users/2162532)
 - **TryHackMe**: [Cooki3Monst3r](https://tryhackme.com/p/Cooki3Monst3r)
+- **CyberEdu**: [k0NN](https://app.cyber-edu.co/user/9fda6482-ab30-49d2-ada8-704aeebfdf9b?tenant=cyberedu)
