@@ -5,7 +5,7 @@
 
 - type: linkedin
   icon: 'fab fa-linkedin'
-  url: 'https://www.linkedin.com/in/constantin-alexandru-razvan-985732276/'
+  url: 'https://www.linkedin.com/in/alexandru-r-985732276/'
 
 - type: custom
   icon: 'fas fa-cube'
@@ -13,7 +13,7 @@
 
 - type: custom
   icon: 'fas fa-shield-halved'
-  url: 'https://tryhackme.com/p/k0NN'
+  url: 'https://tryhackme.com/p/Cooki3Monst3r'
 # Uncomment and complete the url below to enable more contact options
 #
 # - type: mastodon
