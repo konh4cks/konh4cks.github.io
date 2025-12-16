@@ -21,6 +21,10 @@
 - type: custom
   icon: 'fas fa-cube'
   url: 'https://app.hackthebox.com/public/users/2162532'
+
+- type: custom
+  icon: 'fas fa-shield-halved'
+  url: 'https://tryhackme.com/p/k0NN'
 # Uncomment and complete the url below to enable more contact options
 #
 # - type: mastodon
