@@ -1,7 +1,7 @@
 ---
 # the default layout is 'page'
 icon: fas fa-info-circle
-order: 4
+order: 1
 ---
 
 ## $ whoami >
@@ -28,5 +28,5 @@ I am currently open for Penetration Tester positions.
 
 ## Profiles
 
-- **HackTheBox**: [konh4cks](https://app.hackthebox.com/public/users/2162532)
+- **HackTheBox**: [k0NN](https://app.hackthebox.com/public/users/2162532)
 - **TryHackMe**: [Cooki3Monst3r](https://tryhackme.com/p/Cooki3Monst3r)
