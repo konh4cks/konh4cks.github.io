@@ -2,7 +2,7 @@
 title: Defense Evasion
 date: 2025-11-03 00:00:00 +0000
 categories: [Sans Red-Team 2025 Lessons]
-tags: [sans, red-team, 2025]
+tags: [sans, red-team]
 ---
 
 
