@@ -1,6 +1,6 @@
 ---
 title: DNS Settings for Phishing
-date: 2026-01-02 00:00:00 +0000
+date: 2025-11-02 00:00:00 +0000
 categories: [Sans Red-Team 2025 Lessons]
 tags: [sans, red-team, 2025]
 ---
