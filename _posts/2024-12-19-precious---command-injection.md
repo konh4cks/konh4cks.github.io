@@ -110,7 +110,7 @@ ruby@precious:~/.bundle$
 ```
 
 Privesc:
-https://swisskyrepo.github.io/PayloadsAllTheThings/Insecure%20Deserialization/Ruby/#yaml-deserialization
+https://swisskyrepo.github.io/PayloadsAllTheThings/Insecure Deserialization/Ruby/#yaml-deserialization
 ```
 henry@precious:~$ sudo -l
 Matching Defaults entries for henry on precious:

