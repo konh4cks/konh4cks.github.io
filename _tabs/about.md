@@ -19,8 +19,8 @@ I am currently open for Penetration Tester positions.
 ## $ achievements >
 
 ### Certifications
-- eCPPTv3
-- eJPTv2
+- [eCPPTv3](https://certs.ine.com/42aaed5d-6821-474e-a728-0c5f8d1f22ad#acc.0SYUOchN)
+- [eJPTv2](https://certs.ine.com/aa4e1339-d377-4056-8afe-56cbeabef7e0#acc.ZqwcP0TR)
 - OSCP ~ soon
 
 ---
