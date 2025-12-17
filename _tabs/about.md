@@ -26,9 +26,7 @@ I would like to participate in any community events, tournaments or challenges r
 ### [~]> certifications
 
 - **eCPPTv3**  
-  
 - **eJPTv2**  
-
 - **OSCP** ~ soon
 
 ---

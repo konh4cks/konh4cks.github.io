@@ -82,12 +82,12 @@ admin:admin
 
 upload revshell.php failed
 http://10.10.11.106/fw_up.php?msg=SUCCESS // payloads for url failed
-![[Pasted image 20251108212626.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251108212626.png)
 
-![[Pasted image 20251108212638.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251108212638.png)
 
 https://pentestlab.blog/2017/12/13/smb-share-scf-file-attacks/
-![[Pasted image 20251108215138.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251108215138.png)
 
 ```
 ares@legion:~/HackTheBox/Driver$ hashid hash                                           

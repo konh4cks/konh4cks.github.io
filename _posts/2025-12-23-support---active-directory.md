@@ -56,17 +56,17 @@ Nmap done: 1 IP address (1 host up) scanned in 59.33 seconds
 ```
 enum4linux -ng $target | tee enum4linux.log 
 ```
-![[Pasted image 20251113111442.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251113111442.png)
 
 ```
 smbmap -H $target -u 'guest' -p ''
 ```
-![[Pasted image 20251113113340.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251113113340.png)
 
 ```
 smbmap -H $target -u 'guest' -p '' -r support-tools
 ```
-![[Pasted image 20251113113148.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251113113148.png)
 
 Download file:
 ```
@@ -76,7 +76,7 @@ smbmap -H $target -u 'guest' -p '' --download "support-tools/UserInfo.exe.zip"
 ```
 netexec smb $target -u 'guest' -p '' --rid-brute
 ```
-![[Pasted image 20251113113231.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251113113231.png)
 
 ```
 netexec smb $target -u 'guest' -p '' --rid-brute | grep -i 'sidtypeuser' | awk '{print$6}' | cut -d '\' -f2 | tee userlist2.txt

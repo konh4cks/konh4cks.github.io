@@ -29,7 +29,7 @@ sudo ike-scan $target
 ```
 ares@legion:~/HackTheBox/Expressway$ ike-scan --aggressive $target
 ```
-![[Pasted image 20251128182959.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251128182959.png)
 
     Encryption: 3DES (weak by modern standards)
     Hash: SHA1 (also considered weak)
@@ -39,7 +39,7 @@ ares@legion:~/HackTheBox/Expressway$ ike-scan --aggressive $target
 ```
 ares@legion:~/HackTheBox/Expressway$ ike-scan -M -A $target  --pskcrack=output.txt 
 ```
-![[Pasted image 20251128183011.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251128183011.png)
 
 ```
 ares@legion:~/HackTheBox/Expressway$ hashid output.txt 
@@ -87,8 +87,8 @@ ssh ike@expressway.htb
 ```
 
 /usr/bin/sudo instead of /usr/local/bin/sudo 
-![[Pasted image 20251129000448.png]]
-![[Pasted image 20251129000611.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251129000448.png)
+![Image](/assets/img/htb-writeups/Pasted image 20251129000611.png)
 
 Vulnerable to:
 https://www.upwind.io/feed/cve%E2%80%912025%E2%80%9132463-critical-sudo-chroot-privilege-escalation-flaw

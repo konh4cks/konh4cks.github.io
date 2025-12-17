@@ -123,7 +123,7 @@ Nmap done: 1 IP address (1 host up) scanned in 81.83 seconds
 ```
 
 http://10.129.234.64:3000 > download dev-scripts.git // Visist Commits > repos.py
-![[Pasted image 20251122210856.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251122210856.png)
 
 ```
 export GITEA_ACCESS_TOKEN=43ce39bb0bd6bc489284f2905f033ca467a6362f
@@ -181,7 +181,7 @@ Password: ty8wnW9qCKDosXo6
 ```
 xfreerdp3 /v:10.129.234.64 /u:Gale.Dekarios /p:ty8wnW9qCKDosXo6
 ```
-![[Pasted image 20251122223510.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251122223510.png)
 
 Privesc:
 PDF24 CVE
@@ -220,12 +220,12 @@ PS C:\_install> msiexec.exe /fa c:\_install\pdf24-creator-11.15.1-x64.msi
 ```
 wait for new tab pop-up
 
-![[Pasted image 20251122224506.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251122224506.png)
 
-![[Pasted image 20251122224536.png]]
-![[Pasted image 20251122224551.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251122224536.png)
+![Image](/assets/img/htb-writeups/Pasted image 20251122224551.png)
 
-![[Pasted image 20251122224607.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251122224607.png)
 Once browser opens > CTRL + O
 cmd.exe in file explorer > admin cli
 

