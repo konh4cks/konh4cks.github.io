@@ -11,10 +11,6 @@ https://man7.org/linux/man-pages/man7/capabilities.7.html
 
 Went on rabbit hole with this CVE from the enum script. CVE-2021-3560
 
-![[2. CTF Boxes/HackTheBox/htb_image/Pasted image 20250502140014.png]]
-
-![[2. CTF Boxes/HackTheBox/htb_image/Pasted image 20250502140059.png]]
-
 
 From our shell on Cap, we can fetch linpeas.sh with curl and pipe the output directly into bash to execute it:
 ```
