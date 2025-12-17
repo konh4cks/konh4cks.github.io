@@ -40,7 +40,7 @@ Red team Engagements can be categorized into
     Below are examples of client objectives  
     [#Example-1](https://publish.obsidian.md/#Example-1)
 
-```
+```bash
 1. Identify system misconfigurations and network weaknesses.
     1. Focus on exterior systems.
 2. Determine the effectiveness of endpoint detection and response systems.
@@ -50,8 +50,7 @@ Red team Engagements can be categorized into
     3. Segmentation of DMZ and internal servers.
 4. Use of white cards is permitted depending on downtime and length.
 5. Evaluate the impact of data exposure and exfiltration.
-```
-
+```bash
 [#Example-2](https://publish.obsidian.md/#Example-2)
 
 ```
@@ -64,8 +63,7 @@ Red team Engagements can be categorized into
 5. Bean Enterprises will closely monitor interactions with the DMZ and critical/production systems.
     1. Any interaction with "*.bethechange.xyz" is prohibited.
     2. All interaction with "*.globalenterprises.thm" is permitted.
-```
-
+```bash
 ### Rules of Engagement
 
 Rules of engagement (ROE) are used to define how the engagement should be conducted, the scope of the engagement, who should be contacted in case of emergency, and any other items of importance. The ROE is the primary safety net for both the red team and the customer, so if the red team were to deviate from those rules, systems could be damaged, or physically unsafe conditions could be created. Accidents can and do happen, however, so good ROE will define reporting processes for those incidents, and the red team will be completely honest about what happened.  
@@ -78,7 +76,7 @@ A document that defines the purpose of the work, what work will be done, what de
 
 This document serves as the reference for the client and red team for the full engagement. The Concept of Operations document should be written from a semi-technical summary perspective, assuming the target audience/reader has zero to minimal technical knowledge. Below are its components
 
-```
+```bash
 - Client Name
 - Service Provider
 - Timeframe
@@ -86,8 +84,7 @@ This document serves as the reference for the client and red team for the full e
 - Other Training Objectives (Exfiltration)
 - High-Level Tools/Techniques planned to be used
 - Threat group to emulate (if any)
-```
-
+```bash
 Example is below
 
 ```
@@ -96,13 +93,12 @@ Stuxnet Enterprises has hired you as an external contractor to conduct a month-l
 The customer has requested the following training objectives: assess the blue team's ability to identify and defend against live intrusions and attacks, Identify the risk of an adversary within the internal network. The red cell will accomplish objectives by employing the use of Cobalt Strike as the primary red cell tool. The red cell is permitted to use other standard tooling only identifiable to the targeted threat.
 
 Based on customer security posture and maturity, the TTP of the threat group: FIN6, will be employed throughout the engagement.
-```
-
+```bash
 ### Resource Planning Document
 
 Components of such document are below
 
-```
+```bash
 - Header
     - Personnel writing
     - Dates
@@ -121,8 +117,7 @@ Components of such document are below
     - Hardware
     - Cloud
     - Misc.
-```
-
+```bash
 ### Mission Plan Document
 
 This document contains details about the exact actions to be completed by operators. Example sections that the document may include
@@ -133,8 +128,7 @@ This document contains details about the exact actions to be completed by operat
 - Exploits/Attacks
 - Targets (users/machines/objectives)
 - Execution plan variations
-```
-
+```bash
 ### Standard Frameworks
 
 The below frameworks can be referred into when planning and executing an engagement.

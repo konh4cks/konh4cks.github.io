@@ -15,27 +15,24 @@ The below notes encompasses career-related notes, management and operational not
 Below are the basics to get started in Cyber security  
 **Networking Basics**
 
-```
+```bash
 TCP/IP
 How the web works
 Understanding routers, switches, firewalls and IDS/IPS
-```
-
+```bash
 **Operating system basics**
 
 ```
 Linux: Most importantly the file system structure and terminal usage
 Windows: Most importantly understanding the Registry, Task Manager, Startups and the file system structure
-```
-
+```bash
 **Programming**
 
-```
+```bash
 Python: At least be able to read and interpret code. Necessary for web application penetration testing, interpreting exploits and creating scripts 
 Javascript: At least be able to read and interpret code. Necessary for web application penetration testing
 
-```
-
+```bash
 **Basic Hacking Concepts**
 
 ```
@@ -55,21 +52,19 @@ Mobile hacking
 IoT hacking
 Database Hacking
 Cloud Hacking
-```
-
+```bash
 ## Before You Get Hired
 
 ### Jobs to seek before you get into cybersecurity
 
-```
+```bash
 - IT Help Desk
 - Network Admin
 - System Admin
 - Network Engineer
 - Devops
 - Developer ( web or software)
-```
-
+```bash
 ### Recommended Certifications
 
 Starting in Cyber as an entry level
@@ -79,18 +74,16 @@ Starting in Cyber as an entry level
 - GIAC Security Essentials (GSEC)
 - COMPTIA SEC+
 - SSCP
-```
-
+```bash
 Starting in Pentesting
 
-```
+```bash
 - COMPTIA Pentest+
 - eLearnSecurity Junior Penetration Tester
 - OSCP
 - eLearnSecurity Certified Professional Penetration Tester
 - GIAC Penetration Tester (GPEN)
-```
-
+```bash
 Advancing in Pentesting
 
 ```
@@ -103,11 +96,10 @@ Advancing in Pentesting
 - OSWP
 - eLearnSecurity Web Application Penetration Tester
 - eLearnSecurity Web Application Penetration Tester eXtreme
-```
-
+```bash
 Starting in SOC and Blue team
 
-```
+```bash
 - CSX-P
 - GIAC Certified Enterprise Defender (GCED)
 - Cisco CCNA Cyber ops
@@ -119,24 +111,21 @@ Starting in SOC and Blue team
 - GIAC Certified Detection Analyst (GCDA)
 - eLearnSecurity Certified Incident Responder
 - eLearnSecurity Network Defense Professional
-```
-
+```bash
 Threat Hunting and Intelligence
 
 ```
 - eLearnSecurity’s Certified Threat Hunting Professional
 - GIAC Cyber Threat Intelligence (GCTI)
-```
-
+```bash
 Computer Forensics
 
-```
+```bash
 - eLearnSecurity Certified Digital Forensics Professional
 - EC-Council CHFI
 - GIAC Certified Forensic Analyst (GCFA)
 - GIAC Network Forensic Analyst (GNFA)
-```
-
+```bash
 Reverse Engineering, Exploit Development and Malware Analysis
 
 ```
@@ -145,16 +134,14 @@ Reverse Engineering, Exploit Development and Malware Analysis
 - eLearnSecurity’s eLearnSecurity Certified Malware Analysis Professional
 - GIAC Reverse Engineering Malware (GREM)
 - GIAC Exploit Researcher and Advanced Penetration Tester (GXPN)
-```
-
+```bash
 Auditing and Compliance
 
-```
+```bash
 - CISA
 - CDPSE
 - COBIT certifications suite from ISACA
-```
-
+```bash
 Management
 
 ```
@@ -165,32 +152,29 @@ Management
 - COMPTIA Advanced Security Practitioner
 - GIAC Strategic Planning, Policy, and Leadership (GSTRT)
 - GIAC Security Leadership (GSLC)
-```
-
+```bash
 ### Cyber Security Roles
 
 #### SOC Analyst
 
 What does it look like?
 
-```
+```bash
 - SOC analysts are divided into three tiers: L1,L2,L3
 - Tier one deals with the initial investigation of an event. They decide whether an event qualifies as an incident and if so escalate it to Tier two analysts otherwise they drop it as false positive.
 
 - Tier two and tiere 3 analysts do the thourough investigation on the incident.These folks mainly are specialized in forensics, reversing  and network analysis.
-```
-
+```bash
 ```
 - As an independent SOC, you will have to know how to discover Indicators of compromise when analyzing malicious files/URLs and add them to the IPS and other security tools.
 
 - Proficiency in using Splunk, PaloAlto firewall, Cisco ASA,Fortinet, Crowdstrike,sentinel,etc.
-```
-
+```bash
 #### Security Engineer
 
 ##### Roles
 
-```
+```bash
 - Owns the overall security of an organization. The main person responsible for securing an organization's digital assets.
 - Ensures that the organization's cyber security risk is minimized at all times.
 - Devises strategies and creates systems that minimize the risk posed by cyber security threats to an organization.
@@ -198,25 +182,22 @@ What does it look like?
 - Develops and implements secure network solutions.  
 - Architects and engineers trustworthy, reliable, and secure systems.
 - Collaborates and coordinates with other teams to establish security protocols across the organization
-```
-
+```bash
 ##### Required Qualifications
 
 ```
 - 0-2 years of experience with IT administration, helpdesk, networks or security operations.
 - Basic understanding of computer networks, operating systems, and programming.
 - Basic understanding of security concepts such as Governance, Risk and Compliance (GRC).
-```
-
+```bash
 ### FAQs
 
 **Why it's becoming hard to get hired.**
 
-```
+```bash
 - There are saturation currently in the entry level jobs.
 - Large chunk of companies are getting started to form a cyber security department hence they need an expert to start constituting the department.
-```
-
+```bash
 **What to do about it**  
 The below are not to be followed in order. You can consider them as recommendations to check according to your situation.
 
@@ -240,8 +221,7 @@ The below are not to be followed in order. You can consider them as recommendati
 - Having practical projects is also helpful. This includes starting a blog, YouTube channel, collaboration work,etc.
 
 - Doing CTFs and proven record on sites such as tryhackme and hackthebox would help. Connecting and helping other fellow members of these sites would also help.
-```
-
+```bash
 **What advice can be given to a beginner who wants to get hired in cybersecurity?**  
 Look at job postings create a résumé that mirrors what  
 they are asking for if you already have the skills (Maybe a resume for every job posting you apply to). If you don’t have the skills, I recommend using your free time to learn those missing skills by reading,  
@@ -278,7 +258,7 @@ If you are hiring blue teamers, you should look for instances where they picked 
 
 ### VMs and CTFs
 
-```
+```bash
 Ctftime.org
 Ctf365.com
 Overthewire.org
@@ -290,8 +270,7 @@ Immesrive Labs
 pentesterlab.com
 hacker-project.com
 hackerforever.com
-```
-
+```bash
 ### Podcasts
 
 ```
@@ -302,78 +281,66 @@ Defensive Security Podcast
 Open Source Security Podcast
 SANS ISC Daily
 Security Weekly
-```
-
+```bash
 ### Courses Platforms
 
 1- Coursera
 
-```
+```bash
 https://www.coursera.org/
-```
-
+```bash
 2- Edx
 
 ```
 https://www.edx.org/
-```
-
+```bash
 3- IT Master short courses
 
-```
+```bash
 https://learn.itmasters.edu.au/login/index.php
-```
-
+```bash
 4- Iversity
 
 ```
 https://iversity.org/en
-```
-
+```bash
 5- Academic Earth
 
-```
+```bash
 https://academicearth.org/
-```
-
+```bash
 6- Alison Courses
 
 ```
 https://alison.com/
-```
-
+```bash
 7- FreeIT Training channel
 
-```
+```bash
 https://www.youtube.com/@itfreetraining
-```
-
+```bash
 8- SANS Security Courses
 
 ```
 https://www.sans.org/cyber-security-courses/?msc=main-nav
-```
-
+```bash
 ### Tutorials
 
 Networking Tutorials
 
-```
+```bash
 https://www.omnisecu.com/
-```
-
+```bash
 Coding Tutorials
 
 ```
 https://www.w3schools.com/
-```
-
+```bash
 How to Hack subreddit
 
-```
+```bash
 https://www.reddit.com/r/HowToHack/
-```
-
+```bash
 ### Books
 
 ```
@@ -388,11 +355,10 @@ Intelligence-Driven Incident Response: Outwitting the Adversary by Scott Roberts
 Building an Information Security Awareness Program: Defending Against Social Engineering and Technical Threats by Bill Gardner and Valerie Thomas
 
 How to Measure Anything in Cybersecurity Risk by Douglas Hubbard and Richard Seiersen
-```
-
+```bash
 ### Articles and News
 
-```
+```bash
 https://www.govinfosecurity.com/
 https://www.securityweek.com/
 https://www.infosecurity-magazine.com/
@@ -404,16 +370,14 @@ https://securityaffairs.com/
 https://www.cisecurity.org/
 https://www.sans.org/
 https://null-byte.wonderhowto.com/
-```
-
+```bash
 ### Webinars and Podcasts
 
 ```
 https://www.brighttalk.com/
-```
-
+```bash
 ### Forums
 
-```
+```bash
 http://www.waraxe.us/
-```
+```bash

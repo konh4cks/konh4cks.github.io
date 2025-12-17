@@ -74,13 +74,12 @@ The final phase covers the most crucial part, as analysts rely on the responses 
 
 Threat intelligence frameworks collect TTPs and categorize them according to
 
-```
+```bash
 1.  Threat Group
 2.  Kill Chain Phase
 3.  Tactic
 4.  Objective/Goal
-```
-
+```bash
 #### MITRE ATT&CK
 
 **Link**  
@@ -135,17 +134,15 @@ DREAD risk rating.
 8 – Non-sensitive user data has been compromised
 9 – Non-sensitive administrative data has been compromised
 10 – The entire information system has been destructed. All data and applications are inaccessible
-```
-
+```bash
 `Reproducibility`
 
-```
+```bash
 0 – Difficult to replicate the attack
 5 – Complex to replicate the attack
 7.5 – Easy to replicate the attack
 10 – Very easy to replicate the attack
-```
-
+```bash
 `Exploitability`
 
 ```
@@ -153,18 +150,16 @@ DREAD risk rating.
 5 – Available attack tools  needed to exploit the vulnerability
 9 – Web application proxies are needed to exploit the vulnerability
 10 – Indicates the requirement of a web browser  needed to exploit the vulnerability
-```
-
+```bash
 `Affected Users`
 
-```
+```bash
 0 –  no users  affected
 2.5 – Indicates chances of fewer individual users  affected
 6 –  Few users affected
 8 – Administrative users affected
 10 – All users affected
-```
-
+```bash
 `Discoverability`
 
 ```
@@ -172,8 +167,7 @@ DREAD risk rating.
 5 – HTTP requests can uncover the vulnerability
 8 – Vulnerability  found in the public domain
 10 – Vulnerability found in  web address bar or form
-```
-
+```bash
 #### PASTA
 
 **Definition**  
@@ -289,7 +283,7 @@ _Reconnaissance_ is discovering and collecting information on the system and th
 _Weaponization_  
 In this phase, the attacker prepares the infrastructure necessary to perform the attack. Examples are below:
 
-```
+```bash
 - Creating an infected Microsoft Office document containing a malicious macro or VBA scripts.
 
 - Creating a malicious payload or a very sophisticated worm, implant it on the USB drives, and then distribute them in public. An example of the virus. 
@@ -297,8 +291,7 @@ In this phase, the attacker prepares the infrastructure necessary to perform the
 - Creating a Command and Control (C2) server for executing the commands on the victim's machine or deliver more payloads. 
 
 - Creating Backdoors
-```
-
+```bash
 _Delivery_  
 Its the phase where the attacker decides to choose the method for transmitting the payload or the malware.  
 Examples of delivery can be:
@@ -307,8 +300,7 @@ Examples of delivery can be:
 - Phishing email
 - USB Drop Attack: Distributing infected USB drives in public places like coffee shops, parking lots, or on the street.
 - Watering hole attack. A watering hole attack is a targeted attack designed to aim at a specific group of people by compromising the website they are usually visiting and then redirecting them to the malicious website of an attacker's choice.
-```
-
+```bash
 _Exploitation_  
 Its the phase where the attacker could exploit software, system, or server-based vulnerabilities to escalate the privileges or move laterally through the network.  
 The attacker could exploit vulnerabilities by incorporating the exploit with the payload in the weaponization phase or simply after gaining access to the target system.  
@@ -320,15 +312,14 @@ The objective here is to control the victim machine by sending command and instr
 _Actions on objectives_  
 In this stage, the attacker executes the strategic goal of his entire plan. The actions can be:
 
-```
+```bash
 - Harvesting and dumping the credentials from users.
 - Perform privilege escalation
 - Lateral movement through the company's environment.
 - Collect and exfiltrate sensitive data.
 - Deleting the backups and shadow copies. 
 -   Overwrite or corrupt data.
-```
-
+```bash
 ### Information Sharing and Analysis Centers (ISACs)
 
 Used to share and exchange various Indicators of Compromise (IOCs) to obtain threat intelligence
@@ -341,8 +332,7 @@ An acronym for Tactics, Techniques, and Procedures.
 The Tactic is the adversary's goal or objective.
 The Technique is how the adversary achieves the goal or objective.
 The Procedure is how the technique is executed.
-```
-
+```bash
 ### Threat Intelligence Types
 
 **Strategic**  
@@ -354,15 +344,14 @@ Interact with IOCs and how the adversaries operationalize.
 
 ### Steps to create threat intelligence campaign
 
-```
+```bash
 1.  Identify framework and general kill chain
 2.  Determine targeted adversary
 3.  Identify adversary's TTPs and IOCs
 4.  Map gathered threat intelligence to a kill chain or framework
 5.  Draft and maintain needed engagement documentation
 6.  Determine and use needed engagement resources (tools, C2 modification, domains, etc.)
-```
-
+```bash
 ### Threat modelling
 
 Threat modelling is a systematic approach to **identifying, prioritizing, and addressing potential security threats** across the organization. By simulating possible attack scenarios and assessing the existing vulnerabilities of the organisation's interconnected systems and applications, threat modelling enables organisations to develop proactive security measures and make informed decisions about resource allocation.Threat modelling aims to reduce an organisation's overall risk exposure by identifying vulnerabilities and potential attack vectors, allowing for adequate security controls and strategies.

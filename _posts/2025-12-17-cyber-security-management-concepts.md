@@ -145,11 +145,10 @@ The below is the risk assessment matrix using in qualitative risk analysis
 
 And below are the equations we can use to find them
 
-```
+```bash
 SLE= AssetValue × EF
 ALE = SLE× ARO
-```
-
+```bash
 ##### Respond to risk
 
 We take the steps necessary to mitigate the likelihood or impact of the risk. When responding to risks we have the below options
@@ -160,8 +159,7 @@ We take the steps necessary to mitigate the likelihood or impact of the risk. Wh
 
 ```
 ValueofSafeGuard = ALEbeforeSafeguard - AELafterSafeGuard - AnnualCostOfSafeguard
-```
-
+```bash
 The value calculated from above was positive then an implementation of the safeguard is cost effective and the benefits outweigh the risks and if it's negative then the opposite applies.
 
 - `Accept Risk`: Sometimes, the countermeasure cost exceeds the loss incurred if the risk is realized.
@@ -253,22 +251,20 @@ Furthermore, the CVE description includes the affected product name, the affecte
 CVSS is a scoring system that rates the severity of vulnerabilities and identifies their characteristics. It assigns severity scores to all defined vulnerabilities, which is used to prioritize mitigation efforts and the required resources based on the severity. The range of possible scores is 0 to 10, with 10 representing the most severe.  
 You can search for vulnerabilities and their impact along with CVSS score in the links below
 
-```
+```bash
 https://nvd.nist.gov/
 https://www.cvedetails.com/
-```
-
+```bash
 **Interpreting the CVSS Vector**  
 An example of a CVSS vector is shown below
 
 ```
 CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N
-```
-
+```bash
 This vector contains nine components. The first section, CVSS:3.0, simply informs that the vector was composed using CVSS version 3. The next  
 eight sections correspond to each of the eight CVSS metrics below:
 
-```
+```bash
 ■■ Attack Vector: Network (score: 0.85)
 ■■ Attack Complexity: Low (score: 0.77)
 ■■ Privileges Required: None (score: 0.85)
@@ -277,8 +273,7 @@ eight sections correspond to each of the eight CVSS metrics below:
 ■■ Confidentiality: High (score: 0.56)
 ■■ Integrity: None (score: 0.00)
 ■■ Availability: None (score: 0.00)
-```
-
+```bash
 **Mapping qualitative and numeric scores**  
 
 ### Vulnerability Management Life Cycle
@@ -293,8 +288,7 @@ Life Cycle of a vulnerability management programs consists of the below steps
 5- Remediation
 6- Verification and Monitoring
 
-```
-
+```bash
 The **Discover step** includes compiling a list of all the environment's resources/assets, including the applications, services, operating systems, and configurations, to identify vulnerabilities. This step can be accomplished using any vulnerability scanner by adding the assets you want to scan and then start the scanning.  
 The **Prioritize step** includes grouping and assigning a risk-based priority to the assets (identified during the discovery phase) based on how crucial they are to the business. This can significantly assist the organization in determining which groups require special attention and thus will aid in the decision-making process when distributing resources. For example, Asset vulnerabilities leading to data breaches and DB access are rated as **Top** risk priority since the breach of sensitive organization records would damage the organization's reputation and may also have legal or regulatory consequences.  
 The **Assess step** includes creating a risk baseline by evaluating your assets to determine how severe each is. The process lets organizations decide which risks to eliminate based on factors such as their classification, criticality level, and vulnerability level. In the longer run, assessments help organizations establish a consistent baseline.  
@@ -349,19 +343,17 @@ Information security regulation refers to legal and regulatory frameworks that g
 GDPR is a regulation propagated by the European Union that sets strict requirements for how organizations handle and protect and  secure the personal data of EU citizens and residents.  
 GDPR consists of the below components
 
-```
+```bash
 - Prior approval must be obtained before collecting any personal data.
 - Personal data should be kept to a minimum and only collected when necessary.
 - Adequate measures are to be adopted to protect stored personal data.
-```
-
+```bash
 The fines and penalties imposed on non-compliant companies and organizations include two tiers of fines:
 
 ```
 - Tier 1: More severe violations, including unintended data collection, sharing data with third parties without consent, etc. Maximum penalty amounting to 4% of the organization's revenue or 20 million euros (whichever is higher).
 - Tier 2: Less severe violations, including data breach notifications, cyber policies, etc. The maximum fine for Tier 2 is 2% of the organization's revenue or 10 million euros (whichever is higher).
-```
-
+```bash
 **Health Insurance Portability and Accountability Act (HIPAA)**  
 A US-based official law to maintain the sensitivity of health-related information of citizens.  
 **Payment Card Industry Data Security Standard (PCI-DSS**  
@@ -398,7 +390,7 @@ This framework revolves around governance, risk management and compliance with r
 - **Compliance Component**: Ensuring that the organisation meets its legal, regulatory, and industry obligations and that its activities align with its policies and procedures. This includes developing and implementing compliance programs, conducting regular audits and assessments, and reporting on compliance issues to stakeholders.  
     `Steps to create a GRC Program`
 
-```
+```bash
 - Define the scope and objectives: This step involves determining the scope of the GRC program and defining its goals. For example, a company can implement a GRC program for its customer data management system. The objective might be to reduce cyber risks to 50% in the next 12 months while maintaining the trust of its customers. 
 
 - Conduct a risk assessment: In this step, the organisation identifies and assesses its cyber risks. For example, a risk assessment might reveal that the customer data management system is vulnerable to external attacks due to weak access controls or outdated software. The organisation can then prioritize these risks and develop a risk management strategy.
@@ -412,4 +404,4 @@ This framework revolves around governance, risk management and compliance with r
 - Monitor and measure performance: Processes are established to monitor and measure the effectiveness of the GRC program. For example, the organisation can track metrics and compliance with security policies. This information is used to identify areas for improvement and adjust the program as needed.
 
 - Continuously improve: The GRC program is constantly reviewed and improved based on performance metrics, changing risk profiles, and stakeholder feedback. For example, suppose the organisation experiences a security incident. In that case, it might conduct a post-incident analysis to identify the root cause and make changes to prevent a similar incident from happening again.
-```
+```bash

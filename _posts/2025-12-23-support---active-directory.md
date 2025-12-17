@@ -5,7 +5,7 @@ categories: [HackTheBox Writeups]
 tags: [hackthebox, windows]
 ---
 
-```
+```bash
 sudo nmap -sVC -A -T4 $target       
 Starting Nmap 7.95 ( https://nmap.org ) at 2025-11-13 10:59 EET
 Nmap scan report for 10.129.58.63 (10.129.58.63)
@@ -50,34 +50,32 @@ HOP RTT      ADDRESS
 
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 59.33 seconds
-```
-
+```bash
 ```
 enum4linux -ng $target | tee enum4linux.log 
-```
+```bash
 ![20251113111442.png](/assets/img/htb-writeups/Pasted image 20251113111442.png)
 
 ```
 smbmap -H $target -u 'guest' -p ''
-```
+```bash
 ![20251113113340.png](/assets/img/htb-writeups/Pasted image 20251113113340.png)
 
 ```
 smbmap -H $target -u 'guest' -p '' -r support-tools
-```
+```bash
 ![20251113113148.png](/assets/img/htb-writeups/Pasted image 20251113113148.png)
 
 Download file:
 ```
 smbmap -H $target -u 'guest' -p '' --download "support-tools/UserInfo.exe.zip"
-```
-
-```
+```bash
+```bash
 netexec smb $target -u 'guest' -p '' --rid-brute
 ```
 ![20251113113231.png](/assets/img/htb-writeups/Pasted image 20251113113231.png)
 
-```
+```bash
 netexec smb $target -u 'guest' -p '' --rid-brute | grep -i 'sidtypeuser' | awk '{print$6}' | cut -d '\' -f2 | tee userlist2.txt
 
 Administrator
@@ -101,5 +99,4 @@ langley.lucy
 daughtler.mabel
 stoll.rachelle
 ford.victoria
-```
-
+```bash

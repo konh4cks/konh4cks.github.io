@@ -185,22 +185,20 @@ Furthermore, the CVE description includes the affected product name, the affecte
 CVSS is a scoring system that rates the severity of vulnerabilities and identifies their characteristics. It assigns severity scores to all defined vulnerabilities, which is used to prioritize mitigation efforts and the required resources based on the severity. The range of possible scores is 0 to 10, with 10 representing the most severe.  
 You can search for vulnerabilities and their impact along with CVSS score in the links below
 
-```
+```bash
 https://nvd.nist.gov/
 https://www.cvedetails.com/
-```
-
+```bash
 **Interpreting the CVSS Vector**  
 An example of a CVSS vector is shown below
 
 ```
 CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N
-```
-
+```bash
 This vector contains nine components. The first section, CVSS:3.0, simply informs that the vector was composed using CVSS version 3. The next  
 eight sections correspond to each of the eight CVSS metrics below:
 
-```
+```bash
 ■■ Attack Vector: Network (score: 0.85)
 ■■ Attack Complexity: Low (score: 0.77)
 ■■ Privileges Required: None (score: 0.85)
@@ -209,8 +207,7 @@ eight sections correspond to each of the eight CVSS metrics below:
 ■■ Confidentiality: High (score: 0.56)
 ■■ Integrity: None (score: 0.00)
 ■■ Availability: None (score: 0.00)
-```
-
+```bash
 **Mapping qualitative and numeric scores**  
 
 ### Vulnerability Management Life Cycle
@@ -225,8 +222,7 @@ Life Cycle of a vulnerability management programs consists of the below steps
 5- Remediation
 6- Verification and Monitoring
 
-```
-
+```bash
 The **Discover step** includes compiling a list of all the environment's resources/assets, including the applications, services, operating systems, and configurations, to identify vulnerabilities. This step can be accomplished using any vulnerability scanner by adding the assets you want to scan and then start the scanning.  
 The **Prioritize step** includes grouping and assigning a risk-based priority to the assets (identified during the discovery phase) based on how crucial they are to the business. This can significantly assist the organization in determining which groups require special attention and thus will aid in the decision-making process when distributing resources. For example, Asset vulnerabilities leading to data breaches and DB access are rated as **Top** risk priority since the breach of sensitive organization records would damage the organization's reputation and may also have legal or regulatory consequences.  
 The **Assess step** includes creating a risk baseline by evaluating your assets to determine how severe each is. The process lets organizations decide which risks to eliminate based on factors such as their classification, criticality level, and vulnerability level. In the longer run, assessments help organizations establish a consistent baseline.  
@@ -339,7 +335,7 @@ It happens when an attacker is able to pivot and move between different virtuali
 In the wake of an incident, your client will give you the news that a suspicious activity is taking place on a machine in their system.  
 The preparation phase involves preparing the following
 
-```
+```bash
 - One laptop with kali linux, windows and SIFT installed where you can switch between systems at boot
 - A bunch of external hard drives 
 - Bootable USB keys for linux and windows OS
@@ -348,8 +344,7 @@ The preparation phase involves preparing the following
 - USB adapters of all kinds
 - Ethernet cables
 - Physical write blocker for forensic copies.
-```
-
+```bash
 ### Gathering Details
 
 Gather details about the incident from the staff who noticed it. Collect documents about the system architecture and network topology in addition to the contact details of the IT department. It's also important to understand the role of the machine that was under the attack to make a preliminary assessment about the nature of the situation.
@@ -362,8 +357,7 @@ Never do the following below:
 - Its important not to perform any operation on the machine before you do a full memory and disk copy according to forensic standards. Forensic standards state that a full bit by bit copy of the RAM and disk should be performed in addition to any available snapshots.
 
 - Never use any of the tools on the infected machine while its in live state.
-```
-
+```bash
 [Two scenarios are possible]  
 1- The machine is an endpoint machine and not a public facing server  
 2- The machine is a public facing server for business operations
@@ -374,15 +368,14 @@ Never do the following below:
 
 The steps below are taken in order to conduct full forensic analysis
 
-```
+```bash
 1- Full bit by bit copy of the RAM should be performed in addition to any available snapshots.
 2- A usb key with forensic tools to grap open files, running processes, network connections,etc should be available to start the live forensics. Make sure all artifacts are hashed and timestamped so that evidence will be admissible in court and also make sure to document all steps taken in the forensic analysis so that you make an admissible chain of custody.
 3- Full physical disk copy. On Linux that corresponds to /dev/sda and on windows it corresponds to \\.\PHYSICALDRIVE0/. The physical copy can be taken after shutting down the computer by unplugging the power cable.Physical copies are taken bit by bit using a software such as FTK Imager or Encase. Make sure you connect the hard drive to external write blocker to preserve the integrity while connecting it to your investigation computer using a USB cable.
 4- Once RAM is copied and once artifacts are collected, you can use the USB on a clean machine prepared for this purpose.
 5- Make sure to have backups copies of the collected data stored in additional USB keys.
 6- Start the analysis with the live captured data. System configs, network configs,etc.
-```
-
+```bash
 Regarding [step 2] Dumplt is preferable to have for RAM acquisition. You can use this tool to take a memory dump of the machine as well.  
 [About Live System Forensics]  
 Don't perform any live machine forensics untill you take a bit by bit copy of the physical Disk and RAM using acquisition and imaging tools. The output of live forensic tools such as netstat,process hacker,etc is not reliable on an infected machine. Some malwares and rootkits operate on the kernel mode which means they can alter the state of any process or tool installed on the operating system. That's why we do a bit by bit copy then we do live system forensics using our own tools installed on an external USB. To reveal malware behaviour, we compare the output of the analysis between the two methods to decide whether the malware was tampering with OS data.  
@@ -395,12 +388,11 @@ Don't perform any live machine forensics untill you take a bit by bit copy of th
 4- Active and listening connections
 5- Running processes
 6- Jouranl events
-```
-
+```bash
 These artifacts are stored in a USB drive and copied into another three USB drives. Don't connect the USB into a production machine. Remember to use a freshly installed machine for only analysis purposes.  
 [How to spot a suspicious process]
 
-```
+```bash
 1- Process running with wrong parent process. Example would be the authentication manager lsass.exe running as a child process of explorer.exe
 
 2- Process executable running from suspicious locations such as c:\temp or c:\users\
@@ -408,8 +400,7 @@ These artifacts are stored in a USB drive and copied into another three USB driv
 3- Misspelled processes. 
 
 4- Process with long command line containing weird or encoded characters and URLs.
-```
-
+```bash
 [#Note](https://publish.obsidian.md/#Note) What if the machine infected is a virtual machine part of a Hyper-V or ESXi Node?  
 In the above case, we follow the below steps
 
@@ -417,14 +408,12 @@ In the above case, we follow the below steps
 1- Use Vsphere client to connect to the main ESXi node and list all the available virtual machines
 2- Copy The VMDK file which is a full copy of the hard drive of the targeted virtual machine
 3- Suspened the virtual machine to create a snapshot file VMSS that you can merge with the paging file VMEM.
-```
-
+```bash
 To achieve step 3 above, issue the below command
 
-```
+```bash
 vmss2core-sb.exe -W8 "machine.vmem" "machine.vmss"
-```
-
+```bash
 The output of the above command is a memory dump you can inspect with Volatility.
 
 ##### Cut Internet access on the machine
@@ -446,23 +435,21 @@ After you have discovered how the incident occured and created your infection ti
 .cs','*.ps1','*.psm','*.exe','*.com','*.dll','*.vbs','*.vbe','*.js','*.hta','*.msi','*.msp','*.csh','*.cpl','*.bat
 - Reset all users' passwords especially in Windows Active directory including the KRBTGT and DSRM account twice.
 - Clone AD into a new clean windows server domain controller.
-```
-
+```bash
 #### The machine is a public facing server for business operations
 
 ##### Perform full forensic analysis
 
 The steps below are taken to conduct full forensic analysis
 
-```
+```bash
 1- Full bit by bit copy of the RAM should be performed in addition to any available snapshots.
 2- A usb key with forensic tools to grap open files, running processes, network connections,etc should be available to start the live forensics. Make sure all artifacts are hashed and timestamped so that evidence will be admissible in court and also make sure to document all steps taken in the forensic analysis so that you make an admissible chain of custody.
 3- Full physical disk copy. On Linux that corresponds to /dev/sda and on windows it corresponds to \\.\PHYSICALDRIVE0/. The physical copy can be taken after shutting down the computer by unplugging the power cable.Physical copies are taken bit by bit using a software such as FTK Imager or Encase. Make sure you connect the hard drive to external write blocker to preserve the integrity while connecting it to your investigation computer using a USB cable.
 4- Once RAM is copied and once artifacts are collected, you can use the USB on a clean machine prepared for this purpose.
 5- Make sure to have backups copies of the collected data stored in additional USB keys.
 6- Start the analysis with the live captured data. System configs, network configs,etc.
-```
-
+```bash
 Regarding [step 2] Dumplt is preferable to have for RAM acquisition. You can use this tool to take a memory dump of the machine as well.
 
 ##### Interact with the machine using telnet,ssh,RDP,etc
@@ -485,8 +472,7 @@ This includes a premilinary analysis of the below
 2- Try to inspect all tasks/jobs ran by the unrecognized account
 3- Find the root cause of how the attacker managed to get access. This includes inspecting files that were modified around the time of the incident, inspecting tasks/jobs created by the unrecognized account, investigating startups,etc.
 4- Don't disable the attacker's account untill you found the root cause and performed the full forensic analysis.
-```
-
+```bash
 ##### Create an infection time line
 
 After you found the root cause of the hack, create an infection timeline outlining with timestap the steps taken starting from the first malicious action [privilege escalation] untill the moment when the team declared an incident [weird event happened like CPU overload].
@@ -495,7 +481,7 @@ After you found the root cause of the hack, create an infection timeline outlini
 
 After you have discovered how the incident occured and created your infection timeline, you have two set of steps to follow for the eradication. [#The](https://publish.obsidian.md/#The) below steps can be taken in order if the attacker managed to get access only to one machine which is the infected machine
 
-```
+```bash
 - Identify backdoors first. Could be reverse shells or bind shells. Reverse shells can be found easily in firewall logs. Just look for a pattern of an outgoing connection to a recurring IP address. For bind shells, it is usually a listening point or active listening connection therefore nmap scan of the infected machine should reveal all open listening ports. Correlate nmap scan results with netstat issued on the machine to look for common points or discrepanies. If you find a weird listening port, then see if it's listed to start on boot which raises the chacnes of it being a bind shell.Lastly shut down the port and disable the service that was running on it.
 - Look for files modified around the time of the incident with two hours difference.
 -Revoke any unauthorized account created
@@ -508,8 +494,7 @@ After you have discovered how the incident occured and created your infection ti
 - Reset all users' passwords especially in Windows Active directory including the KRBTGT and DSRM account twice.
 - Clone AD into a new clean windows server domain controller.
 
-```
-
+```bash
 [#One](https://publish.obsidian.md/#One) step I omitted from the above steps which is cutting internet access on the machine. Obviously if the infected machines is either a mainframe or a business critical machine where it handles most of your business operations such as serving content or services to clients, then cutting internet access immediately may not be a wise choise.  
 [#If](https://publish.obsidian.md/#If) the attacker hacked the subject machine after compromising another machine or account then the below steps are taken in order:
 
@@ -517,19 +502,17 @@ After you have discovered how the incident occured and created your infection ti
 - Repeat steps 1 and 2 and 3 from the above scenario witout taking any action like shutting down the port or revoking an account access. We don't want to draw the attacke's attention untill we are able to neutralize the first root cause
 - Start collecting data on the root cause. If the attacker managed to get access to the hacked machine via a hacked account or hacked machine then start collecting information about that machine very first. Make sure you follow privacy laws and take approvals from legal and HR to keep the evidence admissible.
 - Gather the ip addresses and computer names of the infected machines and put them in a group you create in the firewall. Then start filtering the firewall logs for all communications between the infected machines including the DC or the public facing server. Filter for traffic on port 135 RCP and Ports 5985-5986 for Winrm to be able to spot the first machine from which the attacker established the first foothold and pivoted into other infected machines. Establish baselines of traffic before, during and after the incident to see the trends.
-```
-
+```bash
 ##### Establishing new firewall rules and logging configs
 
 Just as the incident occured, you knew how it occured and what artifacts the attacker left. Make sure to do the following
 
-```
+```bash
 - Create a firewall or IDS rule to raise an alert once a connection is attempted against the backdoor port
 - Raise an alert using syslog or windows event logs whenever an account belonging to the attacker or used by the attacker was under the attempet of being accessed.
 - Create a honeypot with interesting files and raise an alert upon a connection is made to it.
 - Create an alert for any login made outside business hours.
-```
-
+```bash
 ### Analysis and lessons learned
 
 In this stage of IR, we create a report outlining the following
@@ -537,8 +520,7 @@ In this stage of IR, we create a report outlining the following
 ```
 Total Assets Impacted by the incident
 Type of data leaked if any
-```
-
+```bash
 ## Recommended Security Controls
 
 ### Access Control and Account Management
@@ -632,7 +614,7 @@ helps prevent incidents such as malware infections. Personnel review the policy 
 
 A technique used by attackers especially advanced persistent groups to exfilterate data through DNS queries. Attackers prefer this method because DNS can't be blocked. DNS Tunneling attack detection methods
 
-```
+```bash
 1- Examine long DNS queries usually they come in TXT query type. Wireshark or any packet analyzer can be used.
 
 2- Look also for uncommon DNS query types.
@@ -640,4 +622,4 @@ A technique used by attackers especially advanced persistent groups to exfiltera
 3- DNS tunneling usually use bot traffic and algorithms so while looking into the packers, pay attention to any consisten and repeated long algorithm characters in DNS queries.
 
 4- Examine the destination host or server to which the suspected traffic is sent. If the host or server doesn't receive othe traffic, it means the sole purpose of it is to receive tunneling traffic.
-```
+```bash

