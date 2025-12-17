@@ -3,9 +3,6 @@
 - type: github
   icon: "fab fa-github"
 
-- type: linkedin
-  icon: 'fab fa-linkedin'
-  url: 'https://www.linkedin.com/in/alexandru-r-985732276/'
 
 - type: custom
   icon: 'fas fa-cube'
