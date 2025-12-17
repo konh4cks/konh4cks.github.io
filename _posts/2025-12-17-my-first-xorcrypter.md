@@ -90,12 +90,12 @@ Press any key to exit...
 ```
 
 When running the encrypted .exe we generate a debug log to check the exection
-![Pasted image](/assets/img/xorcrypter 20251217133230.png)
+![Pasted image](/assets/img/xorcrypter/Pasted image 20251217133230.png)
 
 - The decrypted, working malware payload
 - Executed by the crypter to deliver its function
 - Should delete itself after running (auto-cleanup)
-![Pasted image](/assets/img/xorcrypter 20251217133553.png)
+![Pasted image](/assets/img/xorcrypter/Pasted image 20251217133553.png)
 
 This method effectively bypasses signature-based detection by encrypting the payload and compiling a unique loader for each use. However, behavior-based detection systems may still identify it by monitoring patterns like file writes and new process execution.
 
