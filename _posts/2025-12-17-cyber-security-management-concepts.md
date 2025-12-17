@@ -254,7 +254,7 @@ You can search for vulnerabilities and their impact along with CVSS score in the
 ```bash
 https://nvd.nist.gov/
 https://www.cvedetails.com/
-```bash
+```
 **Interpreting the CVSS Vector**  
 An example of a CVSS vector is shown below
 
@@ -273,7 +273,7 @@ eight sections correspond to each of the eight CVSS metrics below:
 ■■ Confidentiality: High (score: 0.56)
 ■■ Integrity: None (score: 0.00)
 ■■ Availability: None (score: 0.00)
-```bash
+```
 **Mapping qualitative and numeric scores**  
 
 ### Vulnerability Management Life Cycle
@@ -353,7 +353,7 @@ The fines and penalties imposed on non-compliant companies and organizations inc
 ```
 - Tier 1: More severe violations, including unintended data collection, sharing data with third parties without consent, etc. Maximum penalty amounting to 4% of the organization's revenue or 20 million euros (whichever is higher).
 - Tier 2: Less severe violations, including data breach notifications, cyber policies, etc. The maximum fine for Tier 2 is 2% of the organization's revenue or 10 million euros (whichever is higher).
-```bash
+```
 **Health Insurance Portability and Accountability Act (HIPAA)**  
 A US-based official law to maintain the sensitivity of health-related information of citizens.  
 **Payment Card Industry Data Security Standard (PCI-DSS**  

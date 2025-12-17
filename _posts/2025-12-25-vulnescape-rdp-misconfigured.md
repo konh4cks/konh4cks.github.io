@@ -47,7 +47,7 @@ HOP RTT      ADDRESS
 
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 22.17 seconds
-```bash
+```
 ```
 xfreerdp3 /v:10.129.234.51 /sec:tls /dynamic-resolution +clipboard /cert:ignore
 ```bash

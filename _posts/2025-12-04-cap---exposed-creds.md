@@ -31,10 +31,10 @@ os.system("/bin/bash"
 
 ```
 getcap /usr/bin/python3.8
-```bash
+```
 ```python
 >This allows Python scripts to create raw sockets without requiring root privileges.​
 ```bash
 sudo setcap cap_net_raw+ep /usr/bin/python3
-```bash
+```
 

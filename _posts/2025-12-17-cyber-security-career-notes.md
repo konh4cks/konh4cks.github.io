@@ -19,20 +19,20 @@ Below are the basics to get started in Cyber security
 TCP/IP
 How the web works
 Understanding routers, switches, firewalls and IDS/IPS
-```bash
+```
 **Operating system basics**
 
 ```
 Linux: Most importantly the file system structure and terminal usage
 Windows: Most importantly understanding the Registry, Task Manager, Startups and the file system structure
-```bash
+```
 **Programming**
 
 ```bash
 Python: At least be able to read and interpret code. Necessary for web application penetration testing, interpreting exploits and creating scripts 
 Javascript: At least be able to read and interpret code. Necessary for web application penetration testing
 
-```bash
+```
 **Basic Hacking Concepts**
 
 ```
@@ -164,7 +164,7 @@ What does it look like?
 - Tier one deals with the initial investigation of an event. They decide whether an event qualifies as an incident and if so escalate it to Tier two analysts otherwise they drop it as false positive.
 
 - Tier two and tiere 3 analysts do the thourough investigation on the incident.These folks mainly are specialized in forensics, reversing  and network analysis.
-```bash
+```
 ```
 - As an independent SOC, you will have to know how to discover Indicators of compromise when analyzing malicious files/URLs and add them to the IPS and other security tools.
 
@@ -197,7 +197,7 @@ What does it look like?
 ```bash
 - There are saturation currently in the entry level jobs.
 - Large chunk of companies are getting started to form a cyber security department hence they need an expert to start constituting the department.
-```bash
+```
 **What to do about it**  
 The below are not to be followed in order. You can consider them as recommendations to check according to your situation.
 
@@ -221,7 +221,7 @@ The below are not to be followed in order. You can consider them as recommendati
 - Having practical projects is also helpful. This includes starting a blog, YouTube channel, collaboration work,etc.
 
 - Doing CTFs and proven record on sites such as tryhackme and hackthebox would help. Connecting and helping other fellow members of these sites would also help.
-```bash
+```
 **What advice can be given to a beginner who wants to get hired in cybersecurity?**  
 Look at job postings create a résumé that mirrors what  
 they are asking for if you already have the skills (Maybe a resume for every job posting you apply to). If you don’t have the skills, I recommend using your free time to learn those missing skills by reading,  

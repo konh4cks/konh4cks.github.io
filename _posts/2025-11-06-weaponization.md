@@ -46,7 +46,7 @@ File-type will show text/html instead of HTA
 ```
 C:\> python demiguise.py -k hello -c "notepad.exe" -p
 Outlook.Application -o test.hta
-```bash
+```
 ```python
 To use Demiguise, download the Python script and use the following flags:
 -k for the encryption key

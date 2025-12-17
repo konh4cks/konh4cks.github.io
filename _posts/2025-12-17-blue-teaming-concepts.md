@@ -188,7 +188,7 @@ You can search for vulnerabilities and their impact along with CVSS score in the
 ```bash
 https://nvd.nist.gov/
 https://www.cvedetails.com/
-```bash
+```
 **Interpreting the CVSS Vector**  
 An example of a CVSS vector is shown below
 
@@ -207,7 +207,7 @@ eight sections correspond to each of the eight CVSS metrics below:
 ■■ Confidentiality: High (score: 0.56)
 ■■ Integrity: None (score: 0.00)
 ■■ Availability: None (score: 0.00)
-```bash
+```
 **Mapping qualitative and numeric scores**  
 
 ### Vulnerability Management Life Cycle
