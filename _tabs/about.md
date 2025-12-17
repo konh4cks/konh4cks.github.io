@@ -26,9 +26,9 @@ I would like to participate in any community events, tournaments or challenges r
 ### [~]> certifications
 
 - **eCPPTv3**  
-  See verified credential: [link](https://certs.ine.com/42aaed5d-6821-474e-a728-0c5f8d1f22ad#acc.0SYUOchN)
+  
 - **eJPTv2**  
-  See verified credential: [link](https://certs.ine.com/aa4e1339-d377-4056-8afe-56cbeabef7e0#acc.ZqwcP0TR)
+
 - **OSCP** ~ soon
 
 ---
