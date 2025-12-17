@@ -33,12 +33,12 @@ curl -s "https://otx.alienvault.com/api/v1/indicators/hostname/example.com/passi
 Make sure to configure all API keys.
 
 - [ ] GitHub Subdomain Scraping
-```
+```bash
 github-subdomains -d domain.com -t [github_token]
 ```
 
 - [ ] Shodan-Powered Subdomain Finder
-```
+```bash
 # Single domain  
 shosubgo -d target.com -s YourAPIKEY  
   
@@ -47,11 +47,11 @@ shosubgo -f domains.txt -s YourAPIKEY
 ```
 **Extract and Scan:** Now for the magic. I use a custom bookmarklet I wrote that automatically fetches all the IP addresses from the Shodan results and downloads them as a .txt file. Here is the that bookmarklet script.
 #### for ip’s:
-```bash
+```javascript
 javascript:(function(){var ipElements=document.querySelectorAll('strong');var ips=[];ipElements.forEach(function(e){ips.push(e.innerHTML.replace(/["']/g,''))});var ipsString=ips.join('\n');var a=document.createElement('a');a.href='data:text/plain;charset=utf-8,'+encodeURIComponent(ipsString);a.download='ip.txt';document.body.appendChild(a);a.click();})();
 ```
 #### for domains:
-```bash
+```javascript
 javascript:(function(){var ipElements=document.querySelectorAll('strong'),ips=[],domains=[];ipElements.forEach(function(e){var t=e.innerHTML.replace(/['"]/g,'').trim();/^(\d{1,3}\.){3}\d{1,3}$/.test(t)?ips.push(t):/^(?!\d+\.)[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(t)&&domains.push(t)});var dataString=%27IPs:\n%27+ips.join(%27\n%27)+%27\n\nDomains:\n%27+domains.join(%27\n%27),a=document.createElement(%27a%27);a.href=%27data:text/plain;charset=utf-8,%27+encodeURIComponent(dataString);a.download=%27domains.txt%27;document.body.appendChild(a);a.click();})();
 ```
 Once you have the file, you can feed it directly into **Nuclei** for automated scanning. Simply replace the tags or template name with the one relevant to your CVE. In minutes, Nuclei will scan the entire list and highlight any vulnerable hosts.
@@ -88,7 +88,7 @@ httpx -l merged_subdomains.txt \
 After enumerating subdomains, a great way to expand your attack surface is by identifying related infrastructure owned by the target organization. This includes discovering additional domains, IP ranges and subdomains associated with the company. The amass intel module is perfect for this task. These commands help you **map out the organization’s digital footprint** based on organization names, IP ranges (CIDRs) and ASNs (Autonomous System Numbers).
 
 - [ ] ASN & IP Discovery
-```
+```bash
 asnmap -d example.com | dnsx -silent -resp-only > asn_ips.txt
 ```
 
