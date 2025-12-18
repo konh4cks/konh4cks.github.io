@@ -23,15 +23,15 @@ amass enum -active -d example.com | awk -F']' '{print $NF}' | sort -u >> subs_am
 ## Public Sources (Manual / Custom)
 
 ```bash
-curl -s "https://crt.sh/?q=%25.example.com&output=json" | jq -r '.[].name_value' | sed 's/^\\*\\.//' | sort -u > subs_crtsh.txt
+curl -s "https://crt.sh/?q=%25.example.com&output=json" | jq -r '.[].name_value' | sed 's/^\*\.//' | sort -u > subs_crtsh.txt
 
-curl -s "http://web.archive.org/cdx/search/cdx?url=*.example.com/*&output=text&fl=original&collapse=urlkey" | \
- sed -E 's_https?://__;s/\\/.*//;s/:.*//' | sed 's/^www\\.//' | sort -u > subs_wayback.txt
+curl -s "http://web.archive.org/cdx/search/cdx?url=*.example.com/*&output=text&fl=original&collapse=urlkey" |
+ sed -E 's_https?://__;s/\/.*//;s/:.*//' | sed 's/^www\.//' | sort -u > subs_wayback.txt
 
-curl -s "https://urlscan.io/api/v1/search/?q=domain:example.com&size=10000" | \
+curl -s "https://urlscan.io/api/v1/search/?q=domain:example.com&size=10000" |
  jq -r '.results[]?.page?.domain' | sort -u > subs_urlscan.txt
 
-curl -s "https://otx.alienvault.com/api/v1/indicators/hostname/example.com/passive_dns" | \
+curl -s "https://otx.alienvault.com/api/v1/indicators/hostname/example.com/passive_dns" |
  jq -r '.passive_dns[]?.hostname' | sort -u > subs_alienvault.txt
 ```
 
@@ -205,59 +205,64 @@ grep -E '\\?[^=]+=.+$' allurls.txt
 ## Sensitive File Discovery
 
 ```bash
-grep -Ei "\\.(env|bak|old|zip|sql|log|conf|yaml|json|txt|db|backup|key|pem)$" allurls.txt
+cat allurls.txt | grep -E "\.xls|\.xml|\.xlsx|\.json|\.pdf|\.sql|\.doc|\.docx|\.pptx|\.txt|\.zip|\.tar\.gz|\.tgz|\.bak|\.7z|\.rar|\.log|\.cache|\.secret|\.db|\.backup|\.yml|\.gz|\.config|\.csv|\.yaml|\.md|\.md5" 
+ 
+cat allurls.txt | grep -E "\.(xls|xml|xlsx|json|pdf|sql|doc|docx|pptx|txt|zip|tar\.gz|tgz|bak|7z|rar|log|cache|secret|db|backup|yml|gz|config|csv|yaml|md|md5|tar|xz|7zip|p12|pem|key|crt|csr|sh|pl|py|java|class|jar|war|ear|sqlitedb|sqlite3|dbf|db3|accdb|mdb|sqlcipher|gitignore|env|ini|conf|properties|plist|cfg)$"  
+site:*.example.com (ext:doc OR ext:docx OR ext:odt OR ext:pdf OR ext:rtf OR ext:ppt OR ext:pptx OR ext:csv OR ext:xls OR ext:xlsx OR ext:txt OR ext:xml OR ext:json OR ext:zip OR ext:rar OR ext:md OR ext:log OR ext:bak OR ext:conf OR ext:sql)
 ```
+
+---
+
+## Hidden Paramater Discovery 
+
+```bash
+arjun -u https://site.com/endpoint.php -oT arjun_output.txt -t 10 --rate-limit 10 --passive -m GET,POST
+arjun -u https://site.com/endpoint.php -oT arjun_output.txt -m GET,POST -w burp-parameter-names.txt -t 10 --rate-limit 10
+```
+
+
 
 ---
 
 ## JavaScript Recon
 
 ```bash
-grep '\\.js$' allurls.txt | sort -u > jsfiles_all.txt
-cat jsfiles_all.txt | httpx-toolkit -mc 200 -content-type | grep javascript | cut -d' ' -f1 > jsfiles_alive.txt
+cat subdomains_alive.txt | gau > urls_gau.txt
+cat subdomains_alive.txt | waybackurls > urls_wayback.txt
+katana -u subdomains_alive.txt -d 3 -ps > urls_katana.txt
+hakrawler -url subdomains_alive.txt -depth 3 -plain > urls_hakrawler.txt
 ```
 
 ```bash
-cat jsfiles_alive.txt | xargs -n1 -P20 python3 LinkFinder.py -i - -o js_endpoints.txt
+cat urls_gau.txt urls_wayback.txt urls_katana.txt urls_hakrawler.txt | sort -u > allurls_js.txt
 ```
-
----
-
-## Vulnerability Discovery
-
-### GF Patterns
 
 ```bash
-cat allurls.txt | gf sqli
-cat allurls.txt | gf xss
+grep -E "\.js$" allurls_js.txt | sort -u > jsfiles_all.txt
 ```
-
-### XSS
 
 ```bash
-echo example.com | gau | gf xss | uro | Gxss | dalfox pipe
+cat jsfiles_all.txt | httpx-toolkit -mc 200 -content-type | grep -E "application/javascript|text/javascript" | cut -d' ' -f1 > jsfiles_alive.txt
 ```
-
-### LFI
 
 ```bash
-echo example.com | gau | gf lfi | qsreplace /etc/passwd | xargs -I{} curl -s {}
+cat jsfiles_alive.txt | xargs -n1 -P20 python3 /path/to/LinkFinder.py -i - -o js_endpoints_linkfinder.txt
 ```
-
-### CORS
 
 ```bash
-curl -H "Origin: https://evil.com" -I https://example.com
+cat jsfiles_alive.txt | xargs -n1 -P20 python3 /path/to/jsfinder.py -i - -o js_endpoints_jsfinder.txt
 ```
-
-### Subdomain Takeover
 
 ```bash
-subzy run --targets subs_alive.txt --concurrency 100
+cat js_endpoints_linkfinder.txt js_endpoints_jsfinder.txt | sort -u > js_endpoints_all.txt
 ```
-
-### Open Redirect
 
 ```bash
-cat allurls.txt | gf redirect | qsreplace https://evil.com | httpx-toolkit -fr -mr evil.com
+cat jsfiles_alive.txt | xargs -n1 -P20 curl -s | grep -E "aws_access_key|aws_secret_key|api key|passwd|pwd|heroku|slack|firebase|swagger|password|ftp password|jdbc|db|sql|secret|config|admin|json|gcp|htaccess|.env|ssh key|access key|secret token|oauth_token|oauth_token_secret" > js_sensitive_keys.txt
 ```
+
+```bash
+cat jsfiles_alive.txt | nuclei -t /home/spy/tools/nuclei-templates/http/exposures/ -c 30 > js_nuclei_exposures.txt
+```
+
+
