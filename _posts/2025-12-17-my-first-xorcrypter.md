@@ -41,8 +41,8 @@ ExecutePayloadInMemory(decryptedPayload);
 ### Running the crypter
 1. **Crypter packs encrypted malware**: `infected.exe` gets encrypted and stuffed inside the loader
 2. **Loader unpacks during execution**: When the crypter's output runs, it decrypts the malware
-3. **Saves with random name**: Uses GUID filename (like `14221560-423a-4ca8-80ca-a78a4faa50cd`) to avoid detection
-4. **Located in user folder**: Drops to `C:\Users\[username]` for stealth
+3. **Saves with random name**: Uses GUID filename (like `14221560-423a-4ca8-80ca-a78a4faa50cd`) 
+4. **Located in user folder**: Drops to `C:\Users\[username]` as a hidden file
 ```
 C:\Users\user\Desktop>XORCrypterBuilder.exe "infected.exe" "encrypt_infected.exe"
 === XOR CRYPTER STARTED ===
