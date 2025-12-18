@@ -1,10 +1,9 @@
 ---
-
 title: Web Checklist - Recon
 date: 2025-12-17 00:00:00 +0000
 categories: [Bug Bounty]
-tags: [bug bounty, recon, web security, checklist]
---------------------------------------------------
+tags: [bug bounty, exploitation, web security, checklist]
+---
 
 ---
 
