@@ -212,6 +212,7 @@ exclude:
   - "*.gemspec"
   - docs
   - tools
+  - content-sources
   - README.md
   - LICENSE
   - purgecss.js
