@@ -104,12 +104,12 @@ Add to host file:
 ![Image](/assets/img/htb-writeups/Pasted image 20250906192511.png)
 
 Login with creds and then we have SSTI:
-Payload: {{7+7}} or *
+Payload: {% raw %}{{7+7}}{% endraw %} or *
 ![Image](/assets/img/htb-writeups/Pasted image 20250906194032.png)
 
 ![Image](/assets/img/htb-writeups/Pasted image 20250906194642.png)
 
-- Injection into a **Jinja2 template** (`{{ ... }}` syntax).
+- Injection into a **Jinja2 template** ({% raw %}`{{ ... }}`{% endraw %} syntax).
 - You abuse Python object access (`config.__class__.__init__.__globals__`) to reach the `os` module.
 - Then use `os.popen()` to execute a **reverse shell command**.
   
