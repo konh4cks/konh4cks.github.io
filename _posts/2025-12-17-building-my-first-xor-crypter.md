@@ -91,8 +91,8 @@ C:\Users\user\AppData\Local\Temp\013c7b62-108c-47bb-aedd-fc10256b5719\Program.cs
 SUCCESS: Encryption completed!
 Output file: C:\Users\user\Desktop\encrypt_infected.exe
 File size: 216358291 bytes
-Original hash: 6e488e2c43cd70a22ab9be1d79c01c5e8a35e1bd9ac1b0c75327eb22524f7f24
-Encrypted hash: 2ee8e4188d224144af66d46d241808fe580f5690f6c281c8cbdd36b5d84caefc
+Original hash: `6e488e2c43cd70a22ab9be1d79c01c5e8a35e1bd9ac1b0c75327eb22524f7f24`
+Encrypted hash: `2ee8e4188d224144af66d46d241808fe580f5690f6c281c8cbdd36b5d84caefc`
 Press any key to exit...
 ```
 
